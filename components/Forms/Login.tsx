@@ -7,15 +7,15 @@ const Login = (): JSX.Element => {
   return (
     <LoginWrapper>
       <div className="login-form lg:w-1/3 sm:w-2/3 sm:mr-4  flex flex-col items-center">
-        <div className="px-4 h-full flex flex-col justify-center form-inputs">
+        <div className="px-4 h-full flex flex-col justify-center form-inputs lg:mb-6">
           <div>
-            <div className="title-section pb-7">
+            <div className="title-section lg:pb-7 sm:pb-3">
               <div className="flex flex-col pb-2">
-                <h2 className="font-light opacity-7 text-[#8c98a0] flex items-center">
+                <h2 className="font-light pt-5 opacity-7 text-[#8c98a0] flex items-center">
                   User Login
                   <span className="bg-[#d9e0e5] ml-2 h-0.5 w-7"></span>
                 </h2>
-                <h1 className="font-bold text-4xl capitalize text-[#0d3856] pt-7 pb-3 leading-relaxed">
+                <h1 className="font-bold lg:text-4xl sm:text-2xl capitalize text-[#0d3856] pt-7 pb-3 leading-relaxed">
                   Communication Makes a good Team
                 </h1>
               </div>
