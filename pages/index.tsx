@@ -1,10 +1,9 @@
 import type { NextPage } from 'next';
-import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
   return (
-    <div className={styles.container}>
-      <p>This is how it started!!</p>
+    <div className="p-3">
+      <p className="text-3xl font-bold">This is how it started!!</p>
     </div>
   );
 };
