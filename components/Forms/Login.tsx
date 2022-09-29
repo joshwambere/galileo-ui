@@ -6,7 +6,7 @@ import { BsInstagram } from 'react-icons/bs';
 const Login = (): JSX.Element => {
   return (
     <LoginWrapper>
-      <div className="login-form w-1/3  flex flex-col items-center">
+      <div className="login-form lg:w-1/3 sm:w-2/3 sm:mr-4  flex flex-col items-center">
         <div className="px-4 h-full flex flex-col justify-center form-inputs">
           <div>
             <div className="title-section pb-7">
@@ -38,7 +38,9 @@ const Login = (): JSX.Element => {
               </div>
             </div>
             <div className="group-input flex flex-col py-2">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password" className="text-[#8c98a0]">
+                Password
+              </label>
               <div className="flex items-center bg-[#f1f6fa] rounded-3xl px-4 py-3 focus:bg-white input-group mt-2">
                 <FiLock color="#8c98a0" />
                 <input
