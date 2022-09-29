@@ -1,0 +1,34 @@
+.auth-wrapper{
+    background-image: url('../public/assets/images/wp-login.jpeg');
+    object-fit: cover;
+    background-size: cover;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    color: #fff;
+}
+.login-form{
+    background: #fff;
+    height: calc(100vh - 50px);
+    margin: 0 20px 0 0;
+    border-radius: 1rem;
+    padding: 4rem 1rem 0 1rem ;
+    color: black;
+    position: relative;
+
+}
+.form-inputs{
+    padding: 0 3rem;
+    margin-top: -3rem;
+}
+.input-group:focus-within {
+    background: #fff;
+    border: 2px solid #d51f97;
+}
+.bottom-section{
+    min-height: 5rem;
+    max-height: 7rem;
+    border-radius: 1rem;
+    margin: auto 0 1rem 0;
+
+}
