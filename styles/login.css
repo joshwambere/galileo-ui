@@ -16,6 +16,14 @@
     position: relative;
 
 }
+.register-form{
+    background: #fff;
+    height: calc(100vh - 30px);
+    border-radius: 1rem;
+    padding: 4rem 1rem 0 1rem ;
+    color: black;
+    position: relative;
+}
 .form-inputs{
     padding: 0 3rem;
     margin-top: -3rem;
@@ -25,11 +33,16 @@
     border: 2px solid #d51f97;
 }
 .bottom-section{
-    min-height: 5rem;
+    min-height: 3rem;
     max-height: 7rem;
     border-radius: 1rem;
     margin: auto 0 1rem 0;
-
+}
+.bottom-section-small{
+    min-height: 3rem;
+    max-height: 7rem;
+    border-radius: 1rem;
+    margin: auto 0 .5rem 0;
 }
 
 
@@ -37,5 +50,5 @@
 .profile-chooser::file-selector-button {
     background: transparent;
     border: none;
-    color: #000;
+    color: #738b9b;
 }

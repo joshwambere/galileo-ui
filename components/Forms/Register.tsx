@@ -10,7 +10,7 @@ import { FiUserCheck } from 'react-icons/fi';
 const Register = (): JSX.Element => {
   return (
     <AuthWrapper>
-      <div className="login-form lg:w-3/5 sm:w-full sm:mr-4  flex flex-col">
+      <div className="register-form xl:w-2/5 lg:w-3/6  sm:w-full sm:mr-4  flex flex-col">
         <div className="px-4 h-full flex flex-col justify-center form-inputs lg:mb-6">
           <div>
             <div className="title-section lg:pb-2=3 sm:pb-2">
@@ -36,23 +36,23 @@ const Register = (): JSX.Element => {
                   <TiUserOutline color="#8c98a0" size="20" />
                   <input
                     className="bg-transparent w-full outline-none pl-2 login-input"
-                    type="email"
+                    type="text"
                     id="email"
                     name="email"
                   />
                 </div>
               </div>
               <div className="group-input flex flex-col py-2 w-1/2 ">
-                <label htmlFor="email" className="text-[#8c98a0]">
+                <label htmlFor="username" className="text-[#8c98a0]">
                   Username
                 </label>
                 <div className="flex items-center bg-[#f1f6fa] rounded-3xl px-4 py-3 focus:bg-white input-group mt-2">
                   <FiUserCheck color="#8c98a0" size="20" />
                   <input
                     className="bg-transparent w-full outline-none pl-2 login-input"
-                    type="email"
+                    type="text"
                     id="email"
-                    name="email"
+                    name="username"
                   />
                 </div>
               </div>
@@ -79,7 +79,7 @@ const Register = (): JSX.Element => {
                 </label>
                 <div className="flex items-center bg-[#f1f6fa] rounded-3xl px-4 py-3 focus:bg-white input-group mt-2">
                   <input
-                    className=" profile-chooser w-full text-sm text-gray-900  rounded-lg  cursor-pointer dark:text-gray-400 focus:outline-none  dark:border-gray-600"
+                    className=" profile-chooser w-full text-sm text-gray-900  rounded-lg  cursor-pointer dark:text-gray-400 focus:outline-none placeholder-[#8c98a0]  dark:border-gray-600"
                     id="file_input"
                     type="file"
                     placeholder="Upload Profile Picture"
@@ -90,16 +90,16 @@ const Register = (): JSX.Element => {
 
             <div className="flex double-group w-full gap-4">
               <div className="group-input flex flex-col py-2 w-1/2">
-                <label htmlFor="email" className="text-[#8c98a0]">
+                <label htmlFor="emp" className="text-[#8c98a0]">
                   Employee Id
                 </label>
                 <div className="flex items-center bg-[#f1f6fa] rounded-3xl px-4 py-3 focus:bg-white input-group mt-2">
                   <HiOutlineIdentification color="#8c98a0" size="20" />
                   <input
                     className="bg-transparent w-full outline-none pl-2 login-input"
-                    type="email"
-                    id="email"
-                    name="email"
+                    type="text"
+                    id="emp"
+                    name="emp"
                   />
                 </div>
               </div>
@@ -119,26 +119,25 @@ const Register = (): JSX.Element => {
               </div>
             </div>
 
-            <span className="flex justify-end text-[#8c98a0] pt-2">
-              Forgot Password
-            </span>
             <button
-              className="bg-[#d51f97] text-[#fff] px-4 py-3 font-bold text-lg tracking-widest rounded-3xl w-full mt-5"
+              className="bg-[#d51f97] text-[#fff] xl:mt-8 px-4 py-3 font-bold text-lg tracking-widest rounded-3xl w-full mt-5"
               type="submit"
             >
-              Login
+              Register
             </button>
           </form>
           <div className="pt-4">
             <span>Already have an account?</span>
-            <span className="text-[#d51f97] ml-2 font-bold">Login</span>
+            <span className="text-[#d51f97] ml-2 font-bold  hover:cursor-pointer">
+              Login
+            </span>
           </div>
         </div>
 
-        <div className=" flex pt-3 w-full px-3 items-center justify-center bg-[#d51f97] self-end bottom-section ">
+        <div className=" md:bottom-section-small flex pt-3 w-full px-3 items-center justify-center bg-[#d51f97] self-end bottom-section ">
           <span className=" h-0.5 bg-[#d9e0e5] w-1/4 mr-3"></span>
-          <RiFacebookLine className="text-[#d9e0e5] text-lg mx-1" />
-          <BsInstagram className="text-[#d9e0e5] text-md mx-1" />
+          <RiFacebookLine className="text-[#d9e0e5] text-lg mx-1 hover:cursor-pointer" />
+          <BsInstagram className="text-[#d9e0e5] text-md mx-1 hover:cursor-pointer" />
           <span className=" h-0.5 bg-[#d9e0e5] w-1/4 ml-3"></span>
         </div>
       </div>
