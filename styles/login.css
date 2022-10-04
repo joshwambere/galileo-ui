@@ -24,6 +24,14 @@
     color: black;
     position: relative;
 }
+.register-form-small{
+    background: #fff;
+    height: calc(100vh - 30px);
+    border-radius: 1rem;
+    padding: 2rem 1rem 0 1rem ;
+    color: black;
+    position: relative;
+}
 .form-inputs{
     padding: 0 3rem;
     margin-top: -3rem;
@@ -38,6 +46,10 @@
     border-radius: 1rem;
     margin: auto 0 1rem 0;
 }
+.form-inputs-small{
+    padding: 0 2rem;
+    margin-top: -3rem;
+}
 .bottom-section-small{
     min-height: 3rem;
     max-height: 7rem;
@@ -51,4 +63,15 @@
     background: transparent;
     border: none;
     color: #738b9b;
+}
+
+.btn_dark_red {
+    background-color: #d51f97 !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    height: 42px !important;
+    border: none !important;
+    padding: 0px 2rem !important;
+    border-radius: 1.5rem !important;
 }

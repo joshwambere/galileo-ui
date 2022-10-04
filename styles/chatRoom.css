@@ -1,0 +1,12 @@
+.Avatar{
+    max-height: 35px;
+    max-width: 35px;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}

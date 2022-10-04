@@ -3,10 +3,40 @@ import { TiUserOutline } from 'react-icons/ti';
 import { FiLock } from 'react-icons/fi';
 import { RiFacebookLine } from 'react-icons/ri';
 import { BsInstagram } from 'react-icons/bs';
+import { Button, Form, Input } from 'antd';
+import {
+  passwordValidation,
+  usernameValidation
+} from '../../shared/utils/validations/formValidation';
+import { useLoginMutation } from '../../services/endpoints/auth.endpoint';
+import { SuccessMessage } from '../shared/messages/SuccessMessage';
+import { dashboardRiderict } from '../../helpers/redirect.helper';
+import { ErrorMessage } from '../shared/messages/ErrorMessage';
 const Login = (): JSX.Element => {
+  const [login, { isLoading: loginLoading, isSuccess: loginSuccess }] =
+    useLoginMutation();
+
+  const onFinish = (values: any) => {
+    login({ email: values?.username, password: values?.password })
+      .unwrap()
+      .then((res: any) => {
+        SuccessMessage(res.message);
+        dashboardRiderict();
+      })
+      .catch((err: any) => {
+        ErrorMessage(err?.data.message);
+      });
+  };
   return (
     <LoginWrapper>
-      <div className="login-form lg:w-1/3 sm:w-2/3 sm:mr-4  flex flex-col items-center">
+      <Form
+        name="Login"
+        onFinish={onFinish}
+        style={{
+          padding: '0 1rem'
+        }}
+        className="login-form px-2 lg:w-1/3 sm:w-2/3 sm:mr-4  flex flex-col items-center"
+      >
         <div className="px-4 h-full flex flex-col justify-center form-inputs lg:mb-6">
           <div>
             <div className="title-section lg:pb-7 sm:pb-3">
@@ -22,45 +52,59 @@ const Login = (): JSX.Element => {
             </div>
             <div className="login-divider bg-[#d9e0e5] h-0.5 w-full opacity-3 mb-4"></div>
           </div>
-          <form className="w-full items-center pt-8">
+          <div className="w-full items-center pt-8">
             <div className="group-input flex flex-col py-2">
               <label htmlFor="email" className="text-[#8c98a0]">
                 Email / username
               </label>
-              <div className="flex items-center bg-[#f1f6fa] rounded-3xl px-4 py-3 focus:bg-white input-group mt-2">
+              <div className="flex relative items-center bg-[#f1f6fa] rounded-3xl px-4 py-2 focus:bg-white input-group mt-2">
                 <TiUserOutline color="#8c98a0" size="20" />
-                <input
-                  className="bg-transparent w-full outline-none pl-2 login-input"
-                  type="email"
-                  id="email"
-                  name="email"
-                />
+                <Form.Item
+                  name="username"
+                  rules={usernameValidation}
+                  style={{ margin: 0 }}
+                >
+                  <input
+                    className="bg-transparent w-full outline-none pl-2 login-input"
+                    id="email"
+                    name="username"
+                    autoComplete="off"
+                  />
+                </Form.Item>
               </div>
             </div>
             <div className="group-input flex flex-col py-2">
-              <label htmlFor="password" className="text-[#8c98a0]">
+              <label htmlFor="password" className="text-[#8c98a0] pt-4">
                 Password
               </label>
-              <div className="flex items-center bg-[#f1f6fa] rounded-3xl px-4 py-3 focus:bg-white input-group mt-2">
+              <div className=" relative flex items-center bg-[#f1f6fa] rounded-3xl px-4 py-2 focus:bg-white input-group mt-2">
                 <FiLock color="#8c98a0" />
-                <input
-                  className="bg-transparent w-full outline-none pl-2 login-input"
-                  type="password"
-                  id="password"
+
+                <Form.Item
                   name="password"
-                />
+                  rules={passwordValidation}
+                  style={{ margin: 0 }}
+                >
+                  <input
+                    className="bg-transparent w-full outline-none pl-2 login-input"
+                    type="password"
+                    id="password"
+                    name="password"
+                  />
+                </Form.Item>
               </div>
             </div>
             <span className="flex justify-end text-[#8c98a0] pt-2">
               Forgot Password
             </span>
-            <button
-              className="bg-[#d51f97] text-[#fff] px-4 py-3 font-bold text-lg tracking-widest rounded-3xl w-full mt-5"
-              type="submit"
+            <Button
+              loading={loginLoading}
+              htmlType="submit"
+              className="btn_dark_red bg-[#d51f97] text-[#fff] px-4 py-3 font-bold text-lg tracking-widest rounded-3xl w-full mt-5"
             >
-              Login
-            </button>
-          </form>
+              Sign in
+            </Button>
+          </div>
           <div className="pt-4">
             <span>Dont have an account?</span>
             <span className="text-[#d51f97] ml-2 font-bold">Sign up</span>
@@ -73,7 +117,7 @@ const Login = (): JSX.Element => {
           <BsInstagram className="text-[#d9e0e5] text-md mx-1" />
           <span className=" h-0.5 bg-[#d9e0e5] w-1/4 ml-3"></span>
         </div>
-      </div>
+      </Form>
     </LoginWrapper>
   );
 };
