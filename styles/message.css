@@ -10,6 +10,7 @@
     background: #f3f4f7;
     border-radius: 1rem;
     max-width: 50%;
+    min-width: 35%;
 }
 .speech-bubble-right {
 
@@ -23,6 +24,7 @@
     background: #d51f97;
     border-radius: 1rem;
     max-width: 50%;
+    min-width: 35%;
     color: #fff;
 }
 .speech-bubble::before {
@@ -95,4 +97,24 @@
 .speech-bubble-right cite span{
     font-weight: 500;
     color: #d51f97;
+}
+
+
+
+.top-bar {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 2;
+}
+.messageList::-webkit-scrollbar{
+    width: 0;
+}
+.messageList{
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.inputMessage{
+    position:sticky;
+    bottom: 0;
 }

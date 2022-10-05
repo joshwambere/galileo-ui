@@ -1,13 +1,12 @@
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
 import { Input } from 'antd';
-import { MessageCard } from '../cards/MessageCard';
-import { ChatRoom } from '../../../shared/types/chatRoom.types';
+import { FC } from 'react';
 
-
-type Props = {
-  charRooms: ChatRoom[];
+type MessageMenuTypes = {
+  children: React.ReactNode;
 };
-export const MessageMenu = ({ charRooms }: Props): JSX.Element => {
+
+export const MessageMenu: FC<MessageMenuTypes> = ({ children }) => {
   return (
     <div className="flex flex-col w-1/5 border-r-2">
       <div className="back-icon flex justify-end pt-3">
@@ -24,12 +23,7 @@ export const MessageMenu = ({ charRooms }: Props): JSX.Element => {
       <div className="search px-2">
         <Input.Search className="searchInput" placeholder="search" />
       </div>
-      <div className="border-t-2 mt-3">
-        {charRooms &&
-          charRooms.map((item, index) => {
-            return <MessageCard chatRoom={item} key={index} />;
-          })}
-      </div>
+      <div className="border-t-2 mt-3 ">{children}</div>
     </div>
   );
 };

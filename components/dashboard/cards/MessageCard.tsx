@@ -5,10 +5,17 @@ import { FiUsers } from 'react-icons/fi';
 
 type Props = {
   chatRoom: ChatRoom;
+  activeRoomHandler: any;
 };
-export const MessageCard = ({ chatRoom }: Props): JSX.Element => {
+export const MessageCard = ({
+  chatRoom,
+  activeRoomHandler
+}: Props): JSX.Element => {
   return (
-    <div className="message-Card bg-[#f9f9f9] hover:bg-white hover:cursor-pointer border-b-2">
+    <div
+      className="message-Card bg-[#f9f9f9] hover:bg-white hover:cursor-pointer border-b-2"
+      onClick={() => activeRoomHandler(chatRoom)}
+    >
       <div className="topRow flex items-center p-2 justify-between">
         <div className="flex">
           <div

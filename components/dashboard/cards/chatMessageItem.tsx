@@ -11,9 +11,10 @@ export const ChatMessageItem = ({ message }: Props): JSX.Element => {
           message && message.user ? 'speech-bubble' : 'speech-bubble-right'
         }
       >
-        <p>When will Apple release a MacBook Air 15 with Retina?</p>
+        <p>{message.text}</p>
         <cite>
-          John Doe - <span>Developer</span>
+          {message.user ? 'Dev' : message.date.toLocaleTimeString()} -{' '}
+          <span>{message.user ? message.user : 'You'}</span>
         </cite>
       </blockquote>
     </div>

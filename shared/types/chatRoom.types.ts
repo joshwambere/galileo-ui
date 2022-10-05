@@ -1,8 +1,10 @@
+import { MessageTypes } from './message.types';
+
 export interface ChatRoom {
   chatRoom: {
     id: string;
     name: string;
   };
-  messages: Object[];
+  messages: MessageTypes[];
   members: Object[];
 }
