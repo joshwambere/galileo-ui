@@ -1,7 +1,9 @@
+import { Manage } from '../../components/pm/Manage';
+
 const manage = (): JSX.Element => {
   return (
     <div className="p-0">
-      <p>PM SECTION</p>
+      <Manage />
     </div>
   );
 };

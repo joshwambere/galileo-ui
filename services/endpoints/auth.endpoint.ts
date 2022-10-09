@@ -1,7 +1,7 @@
 import { BaseApi } from '../api/api';
 import { userLogin, userLoginResponse } from '../../shared/types/user.types';
 
-const todosEndpoint = BaseApi.injectEndpoints({
+const loginEndpoint = BaseApi.injectEndpoints({
   endpoints: builder => ({
     // todos: builder.query<Todo[], void>({
     //   query: () => ({
@@ -22,4 +22,4 @@ const todosEndpoint = BaseApi.injectEndpoints({
   })
 });
 
-export const { useLoginMutation } = todosEndpoint;
+export const { useLoginMutation } = loginEndpoint;
