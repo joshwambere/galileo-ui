@@ -10,8 +10,8 @@ import { FiUserCheck } from 'react-icons/fi';
 const Register = (): JSX.Element => {
   return (
     <AuthWrapper>
-      <div className="register-form xl:w-2/5 lg:w-3/6  sm:w-full sm:mr-4  flex flex-col">
-        <div className="px-4 h-full flex flex-col justify-center form-inputs lg:mb-6">
+      <div className="register-form   xl:w-2/5 lg:w-3/6  sm:w-full sm:mr-4  flex flex-col">
+        <div className="xl:px-4 sm:px-2 h-full flex flex-col justify-center xl:form-inputs sm:form-inputs-small lg:mb-6">
           <div>
             <div className="title-section lg:pb-2=3 sm:pb-2">
               <div className="flex flex-col pb-2">

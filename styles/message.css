@@ -1,0 +1,120 @@
+.speech-bubble {
+
+    margin: 1rem;
+    margin-bottom: 40px;
+    padding: 1.5rem 2rem;
+    position: relative;
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    background: #f3f4f7;
+    border-radius: 1rem;
+    max-width: 50%;
+    min-width: 35%;
+}
+.speech-bubble-right {
+
+    margin: 1rem;
+    margin-bottom: 40px;
+    padding: 1.5rem 2rem;
+    position: relative;
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    background: #d51f97;
+    border-radius: 1rem;
+    max-width: 50%;
+    min-width: 35%;
+    color: #fff;
+}
+.speech-bubble::before {
+    border: 12.5px solid transparent;
+    border-top: 12.5px solid #f3f4f7;
+    border-bottom: 0;
+    height: 0;
+    width: 0;
+    border-top-width: 25px;
+    content: "";
+    display: block;
+    position: absolute;
+    left: 2.5rem;
+    bottom: -25px;
+    transform-origin: center;
+    transform: rotate(90deg) skew(-25deg) translateY(16.6666666667px);
+}
+.right-placed{
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+}
+.left-placed{
+    display: flex;
+    width: 100%;
+
+    justify-content: flex-end;
+}
+.speech-bubble-right::before {
+    border: 12.5px solid transparent;
+    border-top: 12.5px solid #d51f97;
+    border-bottom: 0;
+    height: 0;
+    width: 0;
+    border-top-width: 25px;
+    content: "";
+    display: block;
+    position: absolute;
+    right: 1.5rem;
+    bottom: -25px;
+    transform-origin: center;
+    transform: rotate(135deg) skew(-25deg) translateY(16.6666666667px);
+}
+
+.speech-bubble cite {
+    position: absolute;
+    bottom: -2rem;
+    left: 4.5rem;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    color: #6f7074;
+}
+.speech-bubble cite span{
+    font-weight: 500;
+    color: #d51f97;
+}
+
+.speech-bubble-right cite {
+    position: absolute;
+    bottom: -2rem;
+    right: 3.5rem;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    color: #6f7074;
+}
+.speech-bubble-right cite span{
+    font-weight: 500;
+    color: #d51f97;
+}
+
+
+
+.top-bar {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 2;
+}
+.messageList::-webkit-scrollbar{
+    width: 0;
+}
+.messageList{
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.inputMessage{
+    position:sticky;
+    bottom: 0;
+}

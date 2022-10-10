@@ -3,6 +3,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('./chatRoom.css');
+@import url("message.css");
+
 html,
 body {
   padding: 0;
@@ -20,6 +23,38 @@ a {
   box-sizing: border-box;
 }
 
+.ant-form-item{
+  width: 100%;
+}
+.backout{
+  margin-left: -18px;
+}
+.searchInput{
+    width: 100%;
+    margin-bottom: 10px;
+}
+.ant-input::placeholder{
+  padding-left:20px!important;
+}
+.ant-input:hover >.ant-input-search-button{
+  z-index: 0!important;
+}
+.ant-input-wrapper{
+  position: relative!important;
+}
+.ant-input-group-addon{
+  position: absolute!important;
+  left: 1px!important;
+}
+.ant-input-search-button{
+  background: transparent!important;
+  border: none!important;
+}
+.ant-input{
+  background: #f7f7f7!important;
+  border-radius: 50px!important;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
@@ -28,4 +63,26 @@ a {
     color: white;
     background: #fff;
   }
+}
+
+#projectDescription{
+  border-radius: .5rem!important;
+}
+.ant-form-item-explain-error {
+  color: #ff4d4f;
+  position: absolute;
+  top: 3rem;
+  left: 0;
+  font-weight:300;
+}
+#description_help >div{
+  margin-top: .35rem!important;
+  position: absolute;
+  top: 3rem;
+  left: 0;
+}
+#projectName_help>div{
+  position: absolute;
+  top: 2rem;
+  left: 0;
 }

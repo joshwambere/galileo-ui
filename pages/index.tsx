@@ -1,9 +1,10 @@
 import type { NextPage } from 'next';
+import { Dashboard } from "../components/dashboard";
 
 const Home: NextPage = () => {
   return (
-    <div className="p-3">
-      <p className="text-3xl font-bold">This is how it started!!</p>
+    <div className="p-0">
+      <Dashboard />
     </div>
   );
 };
