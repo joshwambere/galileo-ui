@@ -5,10 +5,20 @@ export interface Project {
   __v: number;
   createdAt: string;
   status: string;
+  room: boolean;
 }
 export interface ProjectRequest {
   name: string;
   description: string;
+}
+
+export interface IinviteContributor {
+  email: string;
+  projectId: string;
+}
+
+export interface IinviteContributorResponse {
+  message: string;
 }
 
 export interface ProjectResponse {

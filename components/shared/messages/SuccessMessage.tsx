@@ -1,4 +1,4 @@
-import { message } from 'antd'
+import { message } from 'antd';
 
 export const SuccessMessage = (text: string | undefined) => {
   return (
@@ -7,9 +7,9 @@ export const SuccessMessage = (text: string | undefined) => {
         content: text ? text : 'Something went wrong. Please contact us',
         duration: 5,
         style: {
-          marginTop: '5vh',
-        },
+          marginTop: '5vh'
+        }
       })}
     </>
-  )
-}
+  );
+};
