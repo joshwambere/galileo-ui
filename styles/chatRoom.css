@@ -10,3 +10,27 @@
     align-items: center;
     color: #fff;
 }
+.room_btn{
+    display: flex!important;
+    align-items: center!important;
+    background: #d51f97!important;
+    border-radius: .25rem!important;
+    color: white!important;
+}
+
+.room_btn:hover{
+    display: flex!important;
+    background: #fff!important;
+    border-radius: .25rem!important;
+    color: #d51f97!important;
+    cursor: pointer;
+}
+.projectBackground{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    border-radius: 50%;
+}

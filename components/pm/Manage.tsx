@@ -9,11 +9,7 @@ import ProjectList from './projects/ProjectList';
 import MainLoader from '../shared/loaders/MainLoader';
 
 export const Manage = (): JSX.Element => {
-  const {
-    data: projects,
-    isLoading: projectsLoading,
-    isFetching: projectFetching
-  } = useProjectsQuery();
+  const { data: projects, isLoading: projectsLoading } = useProjectsQuery();
   const [open, setOpen] = useState<boolean>(false);
   const handleCancel = () => {
     setOpen(false);
