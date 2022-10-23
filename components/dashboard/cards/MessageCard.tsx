@@ -1,10 +1,10 @@
-import { ChatRoom } from '../../../shared/types/chatRoom.types';
+import { Room } from "../../../shared/types/chatRoom.types";
 import { generateHSL } from '../../../shared/utils/avatar/AvatarColorUtil';
 import { generateInitials } from '../../../shared/utils/avatar/avatarInitial.util';
 import { FiUsers } from 'react-icons/fi';
 
 type Props = {
-  chatRoom: ChatRoom;
+  chatRoom: Room;
   activeRoomHandler: any;
 };
 export const MessageCard = ({
@@ -20,12 +20,12 @@ export const MessageCard = ({
         <div className="flex">
           <div
             className="Avatar"
-            style={{ background: generateHSL(chatRoom.chatRoom.id) }}
+            style={{ background: generateHSL(chatRoom._id) }}
           >
-            {generateInitials(chatRoom.chatRoom.name)}
+            {generateInitials(chatRoom.name)}
           </div>
           <p className="font-bold  pl-2 text-[#6f7074] m-0">
-            {chatRoom.chatRoom.name}
+            {chatRoom.name}
           </p>
         </div>
         <div className="flex items-center">
@@ -35,7 +35,7 @@ export const MessageCard = ({
       </div>
       <div className="ChatRoomDetails py-2 px-4">
         <p className="text-[#6f7074]">
-          This is the description of this chatRoom
+          {chatRoom.description}
         </p>
       </div>
     </div>

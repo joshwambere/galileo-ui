@@ -3,7 +3,7 @@ import { TiUserOutline } from 'react-icons/ti';
 import { FiLock } from 'react-icons/fi';
 import { RiFacebookLine } from 'react-icons/ri';
 import { BsInstagram } from 'react-icons/bs';
-import { Button, Form, Input } from 'antd';
+import { Button, Form } from 'antd';
 import {
   passwordValidation,
   usernameValidation
@@ -13,7 +13,7 @@ import { SuccessMessage } from '../shared/messages/SuccessMessage';
 import { dashboardRiderict } from '../../helpers/redirect.helper';
 import { ErrorMessage } from '../shared/messages/ErrorMessage';
 const Login = (): JSX.Element => {
-  const [login, { isLoading: loginLoading, isSuccess: loginSuccess }] =
+  const [login, { isLoading: loginLoading }] =
     useLoginMutation();
 
   const onFinish = (values: any) => {
@@ -24,7 +24,11 @@ const Login = (): JSX.Element => {
         dashboardRiderict();
       })
       .catch((err: any) => {
-        ErrorMessage(err?.data.message);
+        if (err.status === 'FETCH_ERROR') {
+          ErrorMessage('Network Error');
+        } else {
+          ErrorMessage(err?.data.message);
+        }
       });
   };
   return (

@@ -1,14 +1,18 @@
 import { SideMenu } from './ui/sideMenu';
 import { MessageMenu } from './ui/MessageMenu';
 import { ChaRoomBox } from './messages/chaRoomBox';
-import { ChatRoom } from '../../shared/types/chatRoom.types';
-import { useState } from 'react';
+import { ChatRoom, Room } from "../../shared/types/chatRoom.types";
+import { useContext, useEffect, useState } from "react";
 import { MessageCard } from './cards/MessageCard';
-
+import { SocketContext } from '../../contexts/socket.context';
+import { socketConnection } from '../../helpers/Socket.helper';
+import { useChatRoomsQuery } from "../../services/endpoints/chatRoom.endpoint";
+import Image from 'next/image';
+import EmptyImage from '../../public/assets/images/empty.png';
 const mock = [
   {
     chatRoom: {
-      id: '1',
+      _id: '1',
       name: 'New ChatRoom'
     },
     messages: [
@@ -31,7 +35,7 @@ const mock = [
   },
   {
     chatRoom: {
-      id: '22',
+      _id: '22',
       name: 'Solo Tech'
     },
     messages: [
@@ -47,34 +51,52 @@ const mock = [
   }
 ];
 export const Dashboard = (): JSX.Element => {
-  const [activeRoom, setActiveRoom] = useState<string>(mock[0].chatRoom.id);
 
-  const activeRoomHandler = (room: ChatRoom) => {
-    setActiveRoom(room.chatRoom.id);
+  const { data: chatRooms, isLoading: todosLoading, isFetching: Fetching } = useChatRoomsQuery()
+  !Fetching && console.log(chatRooms)
+  const [activeRoom, setActiveRoom] = useState<string>(mock[0].chatRoom._id!);
+  const socket = useContext(SocketContext);
+
+  const activeRoomHandler = (room: Room) => {
+    socket.emit('join:room', {
+      id: room._id,
+      sender: 'johnson',
+      chatRoom: 'dummy'
+    });
+    socket.emit('join:room', {sender: 'johnson', chatRoom: room._id});
+    setActiveRoom(room._id);
   };
-  const room = mock.filter(room => room.chatRoom.id === activeRoom);
+  useEffect(() => {
+    socket.emit('join:room', {sender: 'johnson', chatRoom: mock[0].chatRoom});
+  })
+  const room = chatRooms?.data.filter(room => room._id === activeRoom);
   return (
-    <div className="h-screen flex flex-row">
-      <SideMenu />
+    <SocketContext.Provider value={socketConnection}>
+      <div className="h-screen flex flex-row">
+        <SideMenu />
 
-      <MessageMenu>
-        {mock.map(room => (
-          <MessageCard
+        <MessageMenu>
+          {chatRooms&& chatRooms.data.length>0? chatRooms.data.map(room => (
+            <MessageCard
+              chatRoom={room}
+              activeRoomHandler={activeRoomHandler}
+              key={room._id}
+            />
+          )):
+            <Image src={EmptyImage} alt="empty" className="emptyImages" />
+          }
+
+        </MessageMenu>
+
+        {room&& room.map(room => (
+          <ChaRoomBox
             chatRoom={room}
-            activeRoomHandler={activeRoomHandler}
-            key={room.chatRoom.id}
+            key={room._id}
           />
-        ))}
-      </MessageMenu>
+          ))
 
-      {room.map(room => (
-        <ChaRoomBox
-          chatRoom={room.chatRoom}
-          messages={room.messages}
-          members={room.members}
-          key={room.chatRoom.id}
-        />
-      ))}
-    </div>
+        }
+      </div>
+    </SocketContext.Provider>
   );
 };

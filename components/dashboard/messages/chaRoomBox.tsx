@@ -1,18 +1,27 @@
-import React from 'react';
+import React, { useContext } from "react";
 import { generateHSL } from '../../../shared/utils/avatar/AvatarColorUtil';
 import { generateInitials } from '../../../shared/utils/avatar/avatarInitial.util';
-import { ChatRoom } from '../../../shared/types/chatRoom.types';
 import { AiOutlineMore } from 'react-icons/ai';
 import { MessageInput } from '../ui/messageInput';
 import { MessageList } from './MessageList';
 import { ChatMessageItem } from '../cards/chatMessageItem';
 import { MessageTypes } from '../../../shared/types/message.types';
 import { useChatScroll } from '../../../hooks/scrollTop';
+import { SocketContext } from "../../../contexts/socket.context";
+import {  useChatMessagesQuery } from "../../../services/endpoints/chatRoom.endpoint";
 
-export const ChaRoomBox = ({ chatRoom, messages }: ChatRoom): JSX.Element => {
+
+export const ChaRoomBox = ({ chatRoom }: any): JSX.Element => {
+
+  const { data: room, isLoading: todosLoading } = useChatMessagesQuery({chatRoomId: chatRoom._id})
   const [chatRoomMessage, setChatRoomMessage] =
-    React.useState<MessageTypes[]>(messages);
+    React.useState<MessageTypes[]>(room?.data.messages || []);
+  const [message, setMessage] = React.useState<any>('');
 
+  const socket = useContext(SocketContext);
+  socket.on('message', (data: any) => {
+    setChatRoomMessage([...chatRoomMessage, data.message]);
+  })
   const messageHandler = (newMessage: MessageTypes) => {
     setChatRoomMessage([...chatRoomMessage, newMessage]);
   };
@@ -25,13 +34,13 @@ export const ChaRoomBox = ({ chatRoom, messages }: ChatRoom): JSX.Element => {
           <div className="room flex items-center">
             <div
               className="Avatar"
-              style={{ background: generateHSL(chatRoom.id) }}
+              style={{ background: chatRoom && generateHSL(chatRoom._id) }}
             >
-              {generateInitials(chatRoom.name)}
+              {chatRoom && generateInitials(chatRoom.name)}
             </div>
             <div className="room">
               <p className="m-0 px-2 font-bold text-[#000] text-xl">
-                {chatRoom.name}
+                {chatRoom && chatRoom.name}
               </p>
             </div>
           </div>
@@ -47,7 +56,7 @@ export const ChaRoomBox = ({ chatRoom, messages }: ChatRoom): JSX.Element => {
         </MessageList>
 
         <div className="inputMessage py-3 px-2 ">
-          <MessageInput createMessage={messageHandler} />
+          <MessageInput chatRoomMessage={chatRoomMessage}  createMessage={messageHandler} />
         </div>
       </>
     </div>

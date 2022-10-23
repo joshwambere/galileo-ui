@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3005",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -13,6 +13,7 @@
     "@reduxjs/toolkit": "^1.8.5",
     "antd": "^4.23.4",
     "autoprefixer": "^10.4.12",
+    "eslint-config-prettier": "^8.5.0",
     "formik": "^2.2.9",
     "formik-antd": "^2.0.4",
     "lint-staged": "^13.0.3",
@@ -24,6 +25,7 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
     "react-redux": "^8.0.4",
+    "socket.io-client": "^4.5.2",
     "tailwindcss": "^3.1.8",
     "yup": "^0.32.11"
   },

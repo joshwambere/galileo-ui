@@ -2,7 +2,7 @@ import { MessageTypes } from './message.types';
 
 export interface ChatRoom {
   chatRoom: {
-    id: string;
+    _id: string;
     name: string;
   };
   messages: MessageTypes[];
@@ -13,6 +13,7 @@ export interface Room{
   name: string;
   project: string;
   status: string;
+  description: string;
   __v: number;
 }
 
@@ -21,7 +22,6 @@ export interface ChatRoomResponse {
   data: Room;
   message: string;
 }
-
 export interface ChatRoomsResponse {
   data: Room[];
   message: string;
@@ -29,4 +29,13 @@ export interface ChatRoomsResponse {
 
 export interface ChatRoomRequest {
   projectId: string;
+}
+
+export interface ChatRoomMessageResponse {
+ data: ChatRoom;
+  message: string;
+}
+
+export interface ChatRoomMessageRequest {
+  chatRoomId: string;
 }

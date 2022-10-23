@@ -4,7 +4,7 @@ import { ChatRoom } from '../../types/chatRoom.types';
 
 const initialState: ChatRoom = {
   chatRoom: {
-    id: '',
+    _id: '',
     name: ''
   },
   messages: [],

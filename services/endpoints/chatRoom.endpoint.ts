@@ -1,16 +1,26 @@
 import { BaseApi } from '../api/api';
 import {
+  ChatRoomMessageRequest,
+  ChatRoomMessageResponse,
   ChatRoomRequest,
   ChatRoomResponse,
   ChatRoomsResponse
-} from '../../shared/types/chatRoom.types';
+} from "../../shared/types/chatRoom.types";
 
 const chatRoomEndpoint = BaseApi.injectEndpoints({
   endpoints: builder => ({
-    charRooms: builder.query<ChatRoomsResponse, void>({
+    chatRooms: builder.query<ChatRoomsResponse, void>({
       query: () => ({
-        url: 'chatRoom',
-        method: 'GET'
+        url: 'chatRoom/usersRoom',
+        method: 'GET',
+        credentials: 'include',
+      }),
+      providesTags: ['ChatRoom']
+    }),
+    chatMessages: builder.query<ChatRoomMessageResponse, ChatRoomMessageRequest>({
+      query: (room) => ({
+        url: `chatRoom/messages/${room.chatRoomId}`,
+        method: 'GET',
       }),
       providesTags: ['ChatRoom']
     }),
@@ -26,4 +36,4 @@ const chatRoomEndpoint = BaseApi.injectEndpoints({
   })
 });
 
-export const { useChatRoomMutation, useCharRoomsQuery } = chatRoomEndpoint;
+export const { useChatRoomMutation, useChatRoomsQuery, useChatMessagesQuery } = chatRoomEndpoint;

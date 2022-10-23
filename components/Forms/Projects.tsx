@@ -11,7 +11,7 @@ type Props = {
 };
 
 const Projects = ({ open, setOpen }: Props): JSX.Element => {
-  const [project, { isLoading: projectLoading, isSuccess: projectSuccess }] =
+  const [project, { isLoading: projectLoading }] =
     useProjectMutation();
   const onFinish = (values: any) => {
     project({ name: values?.projectName, description: values?.description })
