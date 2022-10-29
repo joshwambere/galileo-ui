@@ -1,101 +1,86 @@
 import { SideMenu } from './ui/sideMenu';
 import { MessageMenu } from './ui/MessageMenu';
 import { ChaRoomBox } from './messages/chaRoomBox';
-import { ChatRoom, Room } from "../../shared/types/chatRoom.types";
-import { useContext, useEffect, useState } from "react";
+import { Room } from '../../shared/types/chatRoom.types';
+import React, { useContext, useEffect, useState } from 'react';
 import { MessageCard } from './cards/MessageCard';
 import { SocketContext } from '../../contexts/socket.context';
 import { socketConnection } from '../../helpers/Socket.helper';
-import { useChatRoomsQuery } from "../../services/endpoints/chatRoom.endpoint";
+import { useLazyChatRoomsQuery } from '../../services/endpoints/chatRoom.endpoint';
 import Image from 'next/image';
 import EmptyImage from '../../public/assets/images/empty.png';
-const mock = [
-  {
-    chatRoom: {
-      _id: '1',
-      name: 'New ChatRoom'
-    },
-    messages: [
-      {
-        id: '1',
-        text: 'Hello',
-        user: 'johnson',
-        type: 'text',
-        date: new Date()
-      },
-      {
-        id: '3',
-        text: 'Hello',
-        user: '',
-        type: 'text',
-        date: new Date()
-      }
-    ],
-    members: ['dsds']
-  },
-  {
-    chatRoom: {
-      _id: '22',
-      name: 'Solo Tech'
-    },
-    messages: [
-      {
-        id: '1',
-        text: "It's working here",
-        user: 'johnson',
-        type: 'text',
-        date: new Date()
-      }
-    ],
-    members: ['dsds']
-  }
-];
-export const Dashboard = (): JSX.Element => {
+import { useSelector } from 'react-redux';
+import { userResponse } from '../../shared/types/user.types';
+import { MessageTypes } from '../../shared/types/message.types';
 
-  const { data: chatRooms, isLoading: todosLoading, isFetching: Fetching } = useChatRoomsQuery()
-  !Fetching && console.log(chatRooms)
-  const [activeRoom, setActiveRoom] = useState<string>(mock[0].chatRoom._id!);
+export const Dashboard = (): JSX.Element => {
+  const [chatRooms, { data: rooms, isSuccess: roomsSuccess }] =
+    useLazyChatRoomsQuery();
+
+  const [activeRoom, setActiveRoom] = useState<string | null>(null);
+  const [messages, setMessages] = React.useState<MessageTypes[]>([]);
+  useEffect(() => {
+    chatRooms()
+      .unwrap()
+      .then(res => {
+        setActiveRoom(res.data[0]._id);
+      })
+      .catch(err => {});
+  }, [chatRooms]);
   const socket = useContext(SocketContext);
+  const user: userResponse = useSelector((state: any) => state.auth.user);
+  const localUser = JSON.parse(localStorage.getItem('_galileo_usr') || '{}');
+
+  socket.on('message:prev', (data: any) => {
+    setMessages(data.message);
+  });
 
   const activeRoomHandler = (room: Room) => {
     socket.emit('join:room', {
-      id: room._id,
-      sender: 'johnson',
-      chatRoom: 'dummy'
+      sender: (user && user.userName) || (localUser && localUser.userName),
+      chatRoom: activeRoom,
+      user_id: (user && user._id) || (localUser && localUser._id)
     });
-    socket.emit('join:room', {sender: 'johnson', chatRoom: room._id});
     setActiveRoom(room._id);
   };
+
   useEffect(() => {
-    socket.emit('join:room', {sender: 'johnson', chatRoom: mock[0].chatRoom});
-  })
-  const room = chatRooms?.data.filter(room => room._id === activeRoom);
+    if (activeRoom !== null) {
+      socket.emit('join:room', {
+        sender: user && user.userName,
+        chatRoom: activeRoom,
+        user_id: user && user._id
+      });
+    }
+  }, [activeRoom]);
+  const room = rooms?.data.filter(room => room._id === activeRoom);
   return (
     <SocketContext.Provider value={socketConnection}>
       <div className="h-screen flex flex-row">
         <SideMenu />
 
         <MessageMenu>
-          {chatRooms&& chatRooms.data.length>0? chatRooms.data.map(room => (
-            <MessageCard
-              chatRoom={room}
-              activeRoomHandler={activeRoomHandler}
-              key={room._id}
-            />
-          )):
+          {rooms && rooms.data.length > 0 ? (
+            rooms.data.map(room => (
+              <MessageCard
+                chatRoom={room}
+                activeRoomHandler={activeRoomHandler}
+                key={room._id}
+              />
+            ))
+          ) : (
             <Image src={EmptyImage} alt="empty" className="emptyImages" />
-          }
-
+          )}
         </MessageMenu>
 
-        {room&& room.map(room => (
-          <ChaRoomBox
-            chatRoom={room}
-            key={room._id}
-          />
-          ))
-
-        }
+        {room &&
+          room.map(room => (
+            <ChaRoomBox
+              chatRoomMessage={messages}
+              chatRoom={room}
+              key={room._id}
+            />
+          ))}
       </div>
     </SocketContext.Provider>
   );

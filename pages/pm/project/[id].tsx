@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import Modal from '../../../components/modals/Project';
 import { useState } from 'react';
 import Contributor from '../../../components/Forms/Contributor';
+import PMPrivateRoute from '../../../components/wrappers/PmRoutes';
 
 const ProjectDetails = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -43,7 +44,11 @@ const ProjectDetails = () => {
           </div>
         </div>
         <div>
-          <Button onClick={()=>setOpen(true)} type="primary" className="btn_dark_red">
+          <Button
+            onClick={() => setOpen(true)}
+            type="primary"
+            className="btn_dark_red"
+          >
             Add Contributors
           </Button>
         </div>
@@ -52,4 +57,4 @@ const ProjectDetails = () => {
   );
 };
 
-export default ProjectDetails;
+export default PMPrivateRoute(ProjectDetails);

@@ -16,9 +16,9 @@ export const MessageMenu: FC<MessageMenuTypes> = ({ children }) => {
           size={24}
         />
       </div>
-      <div className="flex px-4 py-4 justify-between items-center">
-        <h2 className="font-bold text-2xl">Message</h2>
-        <span className="text-[#717377]">Recent</span>
+      <div className="flex sm:flex-col sm:items-start lg:px-4 sm:px-4 lg:py-4 sm:py-2 justify-between items-center">
+        <h2 className="font-bold lg:text-2xl sm:text-lg">Message</h2>
+        <span className="text-[#717377] sm:list-none">Recent</span>
       </div>
       <div className="search px-2">
         <Input.Search className="searchInput" placeholder="search" />

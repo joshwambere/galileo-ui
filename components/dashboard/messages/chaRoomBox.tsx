@@ -1,30 +1,29 @@
-import React, { useContext } from "react";
+import React from 'react';
 import { generateHSL } from '../../../shared/utils/avatar/AvatarColorUtil';
 import { generateInitials } from '../../../shared/utils/avatar/avatarInitial.util';
 import { AiOutlineMore } from 'react-icons/ai';
 import { MessageInput } from '../ui/messageInput';
 import { MessageList } from './MessageList';
 import { ChatMessageItem } from '../cards/chatMessageItem';
-import { MessageTypes } from '../../../shared/types/message.types';
 import { useChatScroll } from '../../../hooks/scrollTop';
-import { SocketContext } from "../../../contexts/socket.context";
-import {  useChatMessagesQuery } from "../../../services/endpoints/chatRoom.endpoint";
+import { Room } from '../../../shared/types/chatRoom.types';
+import { MessageTypes } from '../../../shared/types/message.types';
 
+type ChatRoomBoxTypes = {
+  chatRoom: Room;
+  chatRoomMessage: MessageTypes[];
+};
 
-export const ChaRoomBox = ({ chatRoom }: any): JSX.Element => {
+export const ChaRoomBox = ({
+  chatRoom,
+  chatRoomMessage
+}: ChatRoomBoxTypes): JSX.Element => {
+  const [messages, setMessages] = React.useState(chatRoomMessage);
 
-  const { data: room, isLoading: todosLoading } = useChatMessagesQuery({chatRoomId: chatRoom._id})
-  const [chatRoomMessage, setChatRoomMessage] =
-    React.useState<MessageTypes[]>(room?.data.messages || []);
-  const [message, setMessage] = React.useState<any>('');
-
-  const socket = useContext(SocketContext);
-  socket.on('message', (data: any) => {
-    setChatRoomMessage([...chatRoomMessage, data.message]);
-  })
   const messageHandler = (newMessage: MessageTypes) => {
-    setChatRoomMessage([...chatRoomMessage, newMessage]);
+    setMessages([...chatRoomMessage, newMessage]);
   };
+
   const boxRef: React.MutableRefObject<HTMLDivElement> =
     useChatScroll(chatRoomMessage);
   return (
@@ -50,13 +49,14 @@ export const ChaRoomBox = ({ chatRoom }: any): JSX.Element => {
         </div>
 
         <MessageList ref={boxRef}>
-          {chatRoomMessage.map((item, index) => (
-            <ChatMessageItem key={index} message={item} />
-          ))}
+          {messages &&
+            messages.map((item, index) => (
+              <ChatMessageItem key={index} message={item} />
+            ))}
         </MessageList>
 
         <div className="inputMessage py-3 px-2 ">
-          <MessageInput chatRoomMessage={chatRoomMessage}  createMessage={messageHandler} />
+          <MessageInput room={chatRoom._id} createMessage={messageHandler} />
         </div>
       </>
     </div>
