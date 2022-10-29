@@ -1,5 +1,7 @@
 import type { NextPage } from 'next';
 import { Dashboard } from '../components/dashboard';
+import React from 'react';
+import WithPrivateRoute from '../components/wrappers/PrivateRoutes';
 
 const Home: NextPage = () => {
   return (
@@ -9,4 +11,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default WithPrivateRoute(Home);

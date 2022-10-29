@@ -8,26 +8,43 @@ import {
   passwordValidation,
   usernameValidation
 } from '../../shared/utils/validations/formValidation';
-import { useLoginMutation } from '../../services/endpoints/auth.endpoint';
+import {
+  useLoginMutation,
+  useUserInfoMutation
+} from '../../services/endpoints/auth.endpoint';
 import { SuccessMessage } from '../shared/messages/SuccessMessage';
 import { dashboardRiderict } from '../../helpers/redirect.helper';
 import { ErrorMessage } from '../shared/messages/ErrorMessage';
-const Login = (): JSX.Element => {
-  const [login, { isLoading: loginLoading }] =
-    useLoginMutation();
+import { useDispatch } from 'react-redux';
+import { setCredentials, setUserInfo } from "../../shared/redux/slices/auth.slice";
+
+const LoginPage = (): JSX.Element => {
+  const [login, { isLoading: loginLoading }] = useLoginMutation();
+  const [userInfo, { isLoading: infoLoading }] = useUserInfoMutation();
+  const dispatch = useDispatch();
 
   const onFinish = (values: any) => {
     login({ email: values?.username, password: values?.password })
       .unwrap()
       .then((res: any) => {
+        dispatch(setCredentials({ token: res?.token }));
         SuccessMessage(res.message);
         dashboardRiderict();
+        userInfo()
+          .unwrap()
+          .then((res: any) => {
+            console.log(res);
+            dispatch(setUserInfo({ user: res.data }));
+          })
+          .catch(e => {
+            ErrorMessage(e.message);
+          });
       })
       .catch((err: any) => {
         if (err.status === 'FETCH_ERROR') {
           ErrorMessage('Network Error');
         } else {
-          ErrorMessage(err?.data.message);
+          ErrorMessage("something happened, we're working on it");
         }
       });
   };
@@ -126,4 +143,4 @@ const Login = (): JSX.Element => {
   );
 };
 
-export default Login;
+export default LoginPage;

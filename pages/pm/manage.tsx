@@ -1,4 +1,5 @@
 import { Manage } from '../../components/pm/Manage';
+import PMPrivateRoute from '../../components/wrappers/PmRoutes';
 
 const manage = (): JSX.Element => {
   return (
@@ -7,4 +8,4 @@ const manage = (): JSX.Element => {
     </div>
   );
 };
-export default manage;
+export default PMPrivateRoute(manage);

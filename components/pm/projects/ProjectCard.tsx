@@ -27,7 +27,7 @@ const ProjectCard = ({ data }: Props) => {
       });
   };
   return (
-    <div className="bg-[#fff] w-1/5 p-3 rounded-xl border-2 hover:cursor-pointer">
+    <div className="bg-[#fff] lg:w-1/5 sm:w-1/2 p-3 rounded-xl border-2 hover:cursor-pointer">
       <div
         onClick={() =>
           changeRoute({ pathname: routes.project.url, query: { id: data._id } })

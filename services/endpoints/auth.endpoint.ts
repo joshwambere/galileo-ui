@@ -1,5 +1,9 @@
 import { BaseApi } from '../api/api';
-import { userLogin, userLoginResponse } from '../../shared/types/user.types';
+import {
+  userInfoResponse,
+  userLogin,
+  userLoginResponse
+} from '../../shared/types/user.types';
 
 const loginEndpoint = BaseApi.injectEndpoints({
   endpoints: builder => ({
@@ -7,12 +11,25 @@ const loginEndpoint = BaseApi.injectEndpoints({
       query: credentials => ({
         url: `auth/login`,
         method: 'POST',
-        body: credentials,
-        credentials: 'include'
+        body: credentials
       }),
       invalidatesTags: ['User']
+    }),
+    userInfo: builder.mutation<userInfoResponse, void>({
+      query: credentials => ({
+        url: `auth/userInfo`,
+        method: 'GET',
+        body: credentials
+      })
+    }),
+    userLogout: builder.mutation<userLoginResponse, void>({
+      query: credentials => ({
+        url: `auth/logout`,
+        method: 'GET',
+        body: credentials
+      })
     })
   })
 });
 
-export const { useLoginMutation } = loginEndpoint;
+export const { useLoginMutation, useUserInfoMutation, useUserLogoutMutation } = loginEndpoint;

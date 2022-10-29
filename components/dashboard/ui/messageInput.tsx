@@ -4,43 +4,37 @@ import { IoIosAttach, IoMdSend } from 'react-icons/io';
 import { IoImageOutline } from 'react-icons/io5';
 
 import { SocketContext } from '../../../contexts/socket.context';
-import { CreateMessage, MessageTypes } from "../../../shared/types/message.types";
+import { MessageTypes } from '../../../shared/types/message.types';
+import { userResponse } from '../../../shared/types/user.types';
+import { useSelector } from 'react-redux';
 
 type MessageInputTypes = {
   createMessage: any;
-  chatRoomMessage: MessageTypes[];
+  room: string;
 };
 
 export const MessageInput = ({
-  createMessage,chatRoomMessage
+  createMessage,
+  room
 }: MessageInputTypes): JSX.Element => {
   const [isRecording, setIsRecording] = useState(false);
   const inputRef = React.useRef<HTMLTextAreaElement>(null);
   const socket = useContext(SocketContext);
-  const [messages, setMessages] = useState<MessageTypes[]>(chatRoomMessage);
-  let message:CreateMessage;
+  const user: userResponse = useSelector((state: any) => state.auth.user);
+  let data: MessageTypes;
   const send = (e?: any) => {
     if (e.key === 'Enter' || e.type === 'click') {
-      message ={
-        type: 'text',
-        data:{
-          message: inputRef.current?.value!,
-          messageType: 'text',
-          sender: 'johnson',
-          chatRoom: 'dummy',
-          status: 'sent',
-          createdAt: new Date()
-        }
-      }
-      socket.emit('message:create', message);
+      data = {
+        chatRoom: room,
+        message: inputRef.current?.value!,
+        messageType: 'text',
+        sender: user._id,
+        status: 'SENT',
+        createdAt: new Date()
+      };
+      socket.emit('message:create', data);
 
-      createMessage({
-        id: Math.random().toFixed(),
-        text: (inputRef.current as HTMLTextAreaElement).value,
-        type: 'text',
-        date: new Date(),
-        user: ''
-      });
+      createMessage(data);
 
       (inputRef.current as HTMLTextAreaElement).value = '';
       inputRef.current?.focus();
