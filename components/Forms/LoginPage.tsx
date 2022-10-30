@@ -16,7 +16,12 @@ import { SuccessMessage } from '../shared/messages/SuccessMessage';
 import { dashboardRiderict } from '../../helpers/redirect.helper';
 import { ErrorMessage } from '../shared/messages/ErrorMessage';
 import { useDispatch } from 'react-redux';
-import { setCredentials, setUserInfo } from "../../shared/redux/slices/auth.slice";
+import {
+  setCredentials,
+  setUserInfo
+} from '../../shared/redux/slices/auth.slice';
+import { router } from 'next/client';
+import { routes } from '../../config/router.config';
 
 const LoginPage = (): JSX.Element => {
   const [login, { isLoading: loginLoading }] = useLoginMutation();
@@ -128,7 +133,12 @@ const LoginPage = (): JSX.Element => {
           </div>
           <div className="pt-4">
             <span>Dont have an account?</span>
-            <span className="text-[#d51f97] ml-2 font-bold">Sign up</span>
+            <span
+              className="text-[#d51f97] ml-2 font-bold hover:cursor-pointer hover:underline"
+              onClick={() => router.replace(routes.register.url)}
+            >
+              Sign up
+            </span>
           </div>
         </div>
 

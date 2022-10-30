@@ -88,3 +88,21 @@
     padding: 0px 2rem !important;
     border-radius: 1.5rem !important;
 }
+.group-input-otp{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+.ant-form-item-control-input-content{
+    display: flex;
+    gap: .5rem;
+}
