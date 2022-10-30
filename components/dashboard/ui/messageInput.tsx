@@ -1,5 +1,5 @@
 import { BsMic, BsMicFill } from 'react-icons/bs';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { IoIosAttach, IoMdSend } from 'react-icons/io';
 import { IoImageOutline } from 'react-icons/io5';
 
@@ -7,6 +7,8 @@ import { SocketContext } from '../../../contexts/socket.context';
 import { MessageTypes } from '../../../shared/types/message.types';
 import { userResponse } from '../../../shared/types/user.types';
 import { useSelector } from 'react-redux';
+import { getMediaStreamPermissions } from '../../../shared/utils/mediaStream/mediaStream.util';
+import { audioRecorder } from '../../../helpers/audioRecorder.helper';
 
 type MessageInputTypes = {
   createMessage: any;
@@ -22,6 +24,20 @@ export const MessageInput = ({
   const socket = useContext(SocketContext);
   const user: userResponse = useSelector((state: any) => state.auth.user);
   let data: MessageTypes;
+
+  const start = () => {
+    audioRecorder.startRecording().then(res => {
+      setIsRecording(true);
+    });
+  };
+
+  const stop = () => {
+
+    audioRecorder.stopRecording().then(res => {
+      setIsRecording(false);
+    });
+  };
+
   const send = (e?: any) => {
     if (e.key === 'Enter' || e.type === 'click') {
       data = {
@@ -50,19 +66,20 @@ export const MessageInput = ({
           onKeyDown={e => send(e)}
         />
         <div className="icons flex items-center">
-          {isRecording ? (
+          {!isRecording ? (
             <BsMicFill
-              className="text-[#d51f97] mr-2 hover:cursor-pointer"
-              size={18}
-              onClick={() => setIsRecording(!isRecording)}
-            />
-          ) : (
-            <BsMic
               className="text-[#6f7074] mr-2 hover:cursor-pointer"
               size={18}
-              onClick={() => setIsRecording(!isRecording)}
+              onClick={start}
+            />
+          ) : (
+            <BsMicFill
+              className=" text-[#d51f97] mr-2 hover:cursor-pointer"
+              size={18}
+              onClick={stop}
             />
           )}
+
           <IoIosAttach
             className="text-[#6f7074] mr-2 hover:cursor-pointer"
             size={18}
