@@ -20,13 +20,14 @@ import {
   setCredentials,
   setUserInfo
 } from '../../shared/redux/slices/auth.slice';
-import { router } from 'next/client';
+import { useRouter } from 'next/router';
 import { routes } from '../../config/router.config';
 
 const LoginPage = (): JSX.Element => {
   const [login, { isLoading: loginLoading }] = useLoginMutation();
   const [userInfo, { isLoading: infoLoading }] = useUserInfoMutation();
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const onFinish = (values: any) => {
     login({ email: values?.username, password: values?.password })
@@ -38,7 +39,6 @@ const LoginPage = (): JSX.Element => {
         userInfo()
           .unwrap()
           .then((res: any) => {
-            console.log(res);
             dispatch(setUserInfo({ user: res.data }));
           })
           .catch(e => {

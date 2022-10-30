@@ -1,7 +1,5 @@
 import AuthWrapper from '../Auth';
-import { Button, Form, InputRef } from 'antd';
-import { router } from 'next/client';
-import { routes } from '../../config/router.config';
+import { Button, Form } from 'antd';
 import { RiFacebookLine } from 'react-icons/ri';
 import { BsInstagram } from 'react-icons/bs';
 import { ActivateInput } from '../../helpers/otp.input.helper';
