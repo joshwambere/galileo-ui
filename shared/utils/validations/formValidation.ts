@@ -14,11 +14,17 @@ export const usernameValidation = [
   }
 ];
 
+export const passwordStrengthValidation = [
+  {
+    required: true,
+    message: 'Password must be at least 8 characters long',
+    min: 8
+  }
+];
+
 export const requiredInput = [
   {
     required: true,
     message: 'This is required'
   }
 ];
-
-

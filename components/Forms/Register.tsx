@@ -6,8 +6,37 @@ import { BsInstagram } from 'react-icons/bs';
 import { MdOutlineAlternateEmail } from 'react-icons/md';
 import { HiOutlineIdentification } from 'react-icons/hi';
 import { FiUserCheck } from 'react-icons/fi';
+import { useSignupMutation } from '../../services/endpoints/auth.endpoint';
+import { Button, Form } from 'antd';
+import {
+  passwordStrengthValidation,
+  requiredInput,
+  usernameValidation
+} from '../../shared/utils/validations/formValidation';
+import { SuccessMessage } from '../shared/messages/SuccessMessage';
+import { ErrorMessage } from '../shared/messages/ErrorMessage';
+import { loginRedirect, verifyRedirect } from "../../helpers/redirect.helper";
 
 const Register = (): JSX.Element => {
+  const [signup, { isLoading: signupLoading }] = useSignupMutation();
+  const onFinish = (data: any) => {
+    signup({
+      name: data?.name,
+      userName: data?.username,
+      email: data?.email,
+      employeeId: data?.emp,
+      password: data?.password,
+      profileImage: data.profile
+    })
+      .unwrap()
+      .then((res: any) => {
+        SuccessMessage(res.message);
+        verifyRedirect();
+      })
+      .catch((err: any) => {
+        ErrorMessage(err.message);
+      });
+  };
   return (
     <AuthWrapper>
       <div className="register-form   xl:w-2/5 lg:w-3/6  sm:w-full sm:mr-4  flex flex-col">
@@ -26,20 +55,32 @@ const Register = (): JSX.Element => {
             </div>
             <div className="login-divider bg-[#d9e0e5] h-0.5 w-full opacity-3 mb-4"></div>
           </div>
-          <form className="w-full items-center pt-4 flex-col">
-            <div className="flex double-group w-full gap-4">
+          <Form
+            onFinish={onFinish}
+            style={{
+              padding: '0 1rem'
+            }}
+            className="w-full items-center lg:pt-4 sm:pt-2 flex-col"
+          >
+            <div className="flex double-group pt-2 w-full gap-4">
               <div className="group-input flex flex-col py-2 w-1/2">
                 <label htmlFor="email" className="text-[#8c98a0]">
                   Name
                 </label>
                 <div className="flex items-center bg-[#f1f6fa] rounded-3xl px-4 py-3 focus:bg-white input-group mt-2">
                   <TiUserOutline color="#8c98a0" size="20" />
-                  <input
-                    className="bg-transparent w-full outline-none pl-2 login-input"
-                    type="text"
-                    id="email"
-                    name="email"
-                  />
+                  <Form.Item
+                    name="name"
+                    rules={requiredInput}
+                    style={{ margin: 0 }}
+                  >
+                    <input
+                      className="bg-transparent w-full outline-none pl-2 login-input"
+                      type="text"
+                      id="email"
+                      name="email"
+                    />
+                  </Form.Item>
                 </div>
               </div>
               <div className="group-input flex flex-col py-2 w-1/2 ">
@@ -48,29 +89,41 @@ const Register = (): JSX.Element => {
                 </label>
                 <div className="flex items-center bg-[#f1f6fa] rounded-3xl px-4 py-3 focus:bg-white input-group mt-2">
                   <FiUserCheck color="#8c98a0" size="20" />
-                  <input
-                    className="bg-transparent w-full outline-none pl-2 login-input"
-                    type="text"
-                    id="email"
+                  <Form.Item
                     name="username"
-                  />
+                    rules={requiredInput}
+                    style={{ margin: 0 }}
+                  >
+                    <input
+                      className="bg-transparent w-full outline-none pl-2 login-input"
+                      type="text"
+                      id="email"
+                      name="username"
+                    />
+                  </Form.Item>
                 </div>
               </div>
             </div>
 
-            <div className="flex double-group w-full gap-4">
+            <div className="flex double-group pt-2 w-full gap-4">
               <div className="group-input flex flex-col py-2 w-1/2">
                 <label htmlFor="email" className="text-[#8c98a0]">
                   Email
                 </label>
                 <div className="flex items-center bg-[#f1f6fa] rounded-3xl px-4 py-3 focus:bg-white input-group mt-2">
                   <MdOutlineAlternateEmail color="#8c98a0" size="20" />
-                  <input
-                    className="bg-transparent w-full outline-none pl-2 login-input"
-                    type="email"
-                    id="email"
+                  <Form.Item
                     name="email"
-                  />
+                    rules={usernameValidation}
+                    style={{ margin: 0 }}
+                  >
+                    <input
+                      className="bg-transparent w-full outline-none pl-2 login-input"
+                      type="email"
+                      id="email"
+                      name="email"
+                    />
+                  </Form.Item>
                 </div>
               </div>
               <div className="group-input flex flex-col py-2 w-1/2 ">
@@ -78,29 +131,38 @@ const Register = (): JSX.Element => {
                   Profile Picture
                 </label>
                 <div className="flex items-center bg-[#f1f6fa] rounded-3xl px-4 py-3 focus:bg-white input-group mt-2">
-                  <input
-                    className=" profile-chooser w-full text-sm text-gray-900  rounded-lg  cursor-pointer dark:text-gray-400 focus:outline-none placeholder-[#8c98a0]  dark:border-gray-600"
-                    id="file_input"
-                    type="file"
-                    placeholder="Upload Profile Picture"
-                  />
+                  <Form.Item name="profile">
+                    <input
+                      className=" profile-chooser w-full text-sm text-gray-900  rounded-lg  cursor-pointer dark:text-gray-400 focus:outline-none placeholder-[#8c98a0]  dark:border-gray-600"
+                      id="file_input"
+                      type="file"
+                      placeholder="Upload Profile Picture"
+                      name="profile"
+                    />
+                  </Form.Item>
                 </div>
               </div>
             </div>
 
-            <div className="flex double-group w-full gap-4">
+            <div className="flex double-group pt-2 w-full gap-4">
               <div className="group-input flex flex-col py-2 w-1/2">
                 <label htmlFor="emp" className="text-[#8c98a0]">
                   Employee Id
                 </label>
                 <div className="flex items-center bg-[#f1f6fa] rounded-3xl px-4 py-3 focus:bg-white input-group mt-2">
                   <HiOutlineIdentification color="#8c98a0" size="20" />
-                  <input
-                    className="bg-transparent w-full outline-none pl-2 login-input"
-                    type="text"
-                    id="emp"
+                  <Form.Item
                     name="emp"
-                  />
+                    rules={requiredInput}
+                    style={{ margin: 0 }}
+                  >
+                    <input
+                      className="bg-transparent w-full outline-none pl-2 login-input"
+                      type="text"
+                      id="emp"
+                      name="emp"
+                    />
+                  </Form.Item>
                 </div>
               </div>
               <div className="group-input flex flex-col py-2 w-1/2 ">
@@ -109,23 +171,30 @@ const Register = (): JSX.Element => {
                 </label>
                 <div className="flex items-center bg-[#f1f6fa] rounded-3xl px-4 py-3 focus:bg-white input-group mt-2">
                   <FiLock color="#8c98a0" />
-                  <input
-                    className="bg-transparent w-full outline-none pl-2 login-input"
-                    type="password"
-                    id="password"
+                  <Form.Item
                     name="password"
-                  />
+                    rules={passwordStrengthValidation}
+                    style={{ margin: 0 }}
+                  >
+                    <input
+                      className="bg-transparent w-full outline-none pl-2 login-input"
+                      type="password"
+                      id="password"
+                      name="password"
+                    />
+                  </Form.Item>
                 </div>
               </div>
             </div>
 
-            <button
-              className="bg-[#d51f97] text-[#fff] xl:mt-8 px-4 py-3 font-bold text-lg tracking-widest rounded-3xl w-full mt-5"
-              type="submit"
+            <Button
+              className="btn_dark_red bg-[#d51f97] text-[#fff] px-4 py-3 font-bold text-lg tracking-widest rounded-3xl w-full mt-5"
+              htmlType="submit"
+              loading={signupLoading}
             >
               Register
-            </button>
-          </form>
+            </Button>
+          </Form>
           <div className="pt-4">
             <span>Already have an account?</span>
             <span className="text-[#d51f97] ml-2 font-bold  hover:cursor-pointer">

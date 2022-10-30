@@ -19,6 +19,10 @@ export const routes = {
     name: 'ChatRoom',
     url: '/chatRoom'
   },
+  verify: {
+    name: 'Verify',
+    url: '/auth/verify'
+  },
   project: {
     name: 'Project',
     url: '/pm/project/[id]'
