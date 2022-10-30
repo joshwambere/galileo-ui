@@ -22,7 +22,7 @@ const WithPrivateRoute = (Wrapped: any) => {
 
     if (!token && localToken) {
       dispatch(setCredentials({ token: localToken }));
-      dispatch(setUserInfo({ user: localUserInfo }));
+      dispatch(setUserInfo({ user: JSON.parse(localUserInfo!) }));
     }
 
     if (!token && !localToken) {

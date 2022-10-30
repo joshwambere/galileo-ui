@@ -28,9 +28,9 @@ export const Dashboard = (): JSX.Element => {
       .catch(err => {});
   }, [chatRooms]);
   const socket = useContext(SocketContext);
-  const user: userResponse = useSelector((state: any) => state.auth.user);
-  const localUser = JSON.parse(localStorage.getItem('_galileo_usr') || '{}');
+  const user = useSelector((state: any) => state.auth.user);
 
+  const localUser = JSON.parse(localStorage.getItem('_galileo_usr') || '{}');
   socket.on('message:prev', (data: any) => {
     setMessages(data.message);
   });
@@ -45,14 +45,18 @@ export const Dashboard = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if (activeRoom !== null) {
+    const initialUser = typeof user === 'string' ? JSON.parse(user) : user;
+    const initialLocalUser =
+      typeof localUser === 'string' ? JSON.parse(localUser) : localUser;
+    console.log(typeof initialUser, initialLocalUser);
+    if (activeRoom !== null && user) {
       socket.emit('join:room', {
-        sender: user && user.userName,
+        sender: initialUser && initialUser.userName,
         chatRoom: activeRoom,
-        user_id: user && user._id
+        user_id: initialLocalUser && initialLocalUser._id
       });
     }
-  }, [activeRoom]);
+  }, [activeRoom, user]);
   const room = rooms?.data.filter(room => room._id === activeRoom);
   return (
     <SocketContext.Provider value={socketConnection}>

@@ -48,6 +48,7 @@ export let audioRecorder = {
         resolve(blob);
       };
       audioRecorder.mediaRecorder.stop();
+
     });
   }
 };

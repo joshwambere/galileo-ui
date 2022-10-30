@@ -9,10 +9,16 @@ import { userResponse } from '../../../shared/types/user.types';
 import { useSelector } from 'react-redux';
 import { getMediaStreamPermissions } from '../../../shared/utils/mediaStream/mediaStream.util';
 import { audioRecorder } from '../../../helpers/audioRecorder.helper';
+import { uploadAudio } from '../../../helpers/cloudinary.upload.helper';
 
 type MessageInputTypes = {
   createMessage: any;
   room: string;
+};
+
+type messageType = {
+  audio: string;
+  image: string;
 };
 
 export const MessageInput = ({
@@ -24,17 +30,22 @@ export const MessageInput = ({
   const socket = useContext(SocketContext);
   const user: userResponse = useSelector((state: any) => state.auth.user);
   let data: MessageTypes;
+  const profileInputRef = React.useRef<HTMLInputElement>(null);
 
   const start = () => {
-    audioRecorder.startRecording().then(res => {
+    audioRecorder.startRecording().then(_res => {
       setIsRecording(true);
     });
   };
 
   const stop = () => {
-
-    audioRecorder.stopRecording().then(res => {
+    audioRecorder.stopRecording().then(_res => {
       setIsRecording(false);
+      uploadAudio(audioRecorder.audioBlob[0]).then(res => {
+        if (res) {
+          sendAudioMedia(res, 'audio');
+        }
+      });
     });
   };
 
@@ -55,6 +66,32 @@ export const MessageInput = ({
       (inputRef.current as HTMLTextAreaElement).value = '';
       inputRef.current?.focus();
     }
+  };
+  const uploadImage = (e: any) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      uploadAudio(new Blob([reader.result!])).then(res => {
+        if (res) {
+          sendAudioMedia(res, 'image');
+        }
+      });
+    };
+  };
+
+  const sendAudioMedia = (cloudinary_url: string, type: string) => {
+    const message = {
+      chatRoom: room,
+      message: cloudinary_url,
+      messageType: type === 'audio' ? 'AUDIO' : 'IMAGE',
+      sender: user._id,
+      status: 'SENT',
+      createdAt: new Date()
+    };
+    socket.emit('message:create', message);
+
+    createMessage(message);
   };
   return (
     <>
@@ -84,10 +121,22 @@ export const MessageInput = ({
             className="text-[#6f7074] mr-2 hover:cursor-pointer"
             size={18}
           />
-          <IoImageOutline
-            className="text-[#6f7074] mr-2 hover:cursor-pointer"
-            size={18}
-          />
+
+          <label className="upload-image-chat">
+            <input
+              ref={profileInputRef}
+              type="file"
+              name="profile"
+              accept="image/png, image/gif, image/jpeg"
+              className="upload-image"
+              onChange={e => uploadImage(e)}
+            />
+            <IoImageOutline
+              className="text-[#6f7074] mr-2 hover:cursor-pointer"
+              size={18}
+            />
+          </label>
+
           <IoMdSend
             className="ml-2 text-[#d51f97] mr-2 hover:cursor-pointer"
             size={26}
