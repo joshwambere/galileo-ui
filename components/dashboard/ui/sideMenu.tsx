@@ -14,6 +14,8 @@ import { removeCredentials } from '../../../shared/redux/slices/auth.slice';
 import { useUserLogoutMutation } from '../../../services/endpoints/auth.endpoint';
 import { ErrorMessage } from '../../shared/messages/ErrorMessage';
 import { useRouter } from 'next/router';
+import { changeRoute } from '../../../helpers/routeHandler.helper';
+import { routes } from '../../../config/router.config';
 
 export const SideMenu = (): JSX.Element => {
   const token = useSelector((state: RootState) => state.auth.token);
@@ -50,7 +52,10 @@ export const SideMenu = (): JSX.Element => {
           />
         </div>
       </div>
-      <div className="flex icon-group pt-5 justify-center">
+      <div
+        className="flex icon-group pt-5 justify-center"
+        onClick={() => changeRoute(routes.chat.url)}
+      >
         <FiInbox
           size={24}
           className="hover:cursor-pointer hover:text-[#d51f97]"
@@ -58,13 +63,19 @@ export const SideMenu = (): JSX.Element => {
       </div>
       {role && role === 'PM' && (
         <>
-          <div className="flex icon-group pt-5 justify-center">
+          <div
+            className="flex icon-group pt-5 justify-center"
+            onClick={() => changeRoute(routes.pm.url)}
+          >
             <AiOutlineProject
               size={24}
               className="hover:cursor-pointer hover:text-[#d51f97]"
             />
           </div>
-          <div className="flex icon-group pt-5 justify-center">
+          <div
+            className="flex icon-group pt-5 justify-center"
+            onClick={() => changeRoute(routes.chatRoom.url)}
+          >
             <AiOutlineUsergroupAdd
               className="hover:cursor-pointer hover:text-[#d51f97]"
               size={24}

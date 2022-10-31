@@ -17,7 +17,7 @@ export const routes = {
   },
   chatRoom: {
     name: 'ChatRoom',
-    url: '/chatRoom'
+    url: '/chatroom'
   },
   verify: {
     name: 'Verify',

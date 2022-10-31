@@ -15,7 +15,7 @@ type Props = {
 };
 
 const ProjectCard = ({ data }: Props) => {
-  const [chatRoom, { isLoading, isError, error }] = useChatRoomMutation();
+  const [chatRoom, { isLoading, isError }] = useChatRoomMutation();
   const handelCreatChatRoom = (projectId: string) => {
     chatRoom({ projectId: projectId })
       .unwrap()

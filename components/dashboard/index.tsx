@@ -10,8 +10,8 @@ import { useLazyChatRoomsQuery } from '../../services/endpoints/chatRoom.endpoin
 import Image from 'next/image';
 import EmptyImage from '../../public/assets/images/empty.png';
 import { useSelector } from 'react-redux';
-import { userResponse } from '../../shared/types/user.types';
 import { MessageTypes } from '../../shared/types/message.types';
+import { useRouter } from 'next/router';
 
 export const Dashboard = (): JSX.Element => {
   const [chatRooms, { data: rooms, isSuccess: roomsSuccess }] =
@@ -19,11 +19,15 @@ export const Dashboard = (): JSX.Element => {
 
   const [activeRoom, setActiveRoom] = useState<string | null>(null);
   const [messages, setMessages] = React.useState<MessageTypes[]>([]);
+  const queryRoom = useRouter().query.room;
   useEffect(() => {
     chatRooms()
       .unwrap()
       .then(res => {
-        setActiveRoom(res.data[0]._id);
+        const activate: string = queryRoom
+          ? queryRoom.toString()
+          : res.data[0]._id;
+        setActiveRoom(activate);
       })
       .catch(err => {});
   }, [chatRooms]);
@@ -48,7 +52,6 @@ export const Dashboard = (): JSX.Element => {
     const initialUser = typeof user === 'string' ? JSON.parse(user) : user;
     const initialLocalUser =
       typeof localUser === 'string' ? JSON.parse(localUser) : localUser;
-    console.log(typeof initialUser, initialLocalUser);
     if (activeRoom !== null && user) {
       socket.emit('join:room', {
         sender: initialUser && initialUser.userName,
