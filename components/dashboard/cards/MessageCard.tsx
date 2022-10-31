@@ -1,4 +1,4 @@
-import { Room } from "../../../shared/types/chatRoom.types";
+import { Room } from '../../../shared/types/chatRoom.types';
 import { generateHSL } from '../../../shared/utils/avatar/AvatarColorUtil';
 import { generateInitials } from '../../../shared/utils/avatar/avatarInitial.util';
 import { FiUsers } from 'react-icons/fi';
@@ -24,9 +24,7 @@ export const MessageCard = ({
           >
             {generateInitials(chatRoom.name)}
           </div>
-          <p className="font-bold  pl-2 text-[#6f7074] m-0">
-            {chatRoom.name}
-          </p>
+          <p className="font-bold  pl-2 text-[#6f7074] m-0">{chatRoom.name}</p>
         </div>
         <div className="flex items-center">
           <FiUsers className="text-[#6f7074]" />
@@ -34,9 +32,7 @@ export const MessageCard = ({
         </div>
       </div>
       <div className="ChatRoomDetails py-2 px-4">
-        <p className="text-[#6f7074]">
-          {chatRoom.description}
-        </p>
+        <p className="text-[#6f7074]">{chatRoom.description}</p>
       </div>
     </div>
   );

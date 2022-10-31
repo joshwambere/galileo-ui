@@ -12,8 +12,7 @@ type Props = {
 };
 
 const Projects = ({ open, setOpen, id }: Props): JSX.Element => {
-  const [invite, { isLoading: projectLoading, isSuccess: projectSuccess }] =
-    useInviteMutation();
+  const [invite, { isLoading: projectLoading }] = useInviteMutation();
   const onFinish = (values: any) => {
     invite({ email: values?.email, projectId: id })
       .unwrap()

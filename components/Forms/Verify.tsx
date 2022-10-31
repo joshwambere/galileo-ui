@@ -62,7 +62,7 @@ const VerifyForm = (): JSX.Element => {
           SuccessMessage(res.message);
           loginRedirect();
         })
-        .catch(e => {
+        .catch(_e => {
           ErrorMessage("something happened, we're working on it");
         });
     }

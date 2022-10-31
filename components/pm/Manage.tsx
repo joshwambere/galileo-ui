@@ -1,4 +1,3 @@
-import SideMenu from './ui/Sidemenu';
 import SearchBar from './ui/searchBar';
 import Filter from './ui/Filter';
 import Project from '../modals/Project';
@@ -7,6 +6,7 @@ import { useState } from 'react';
 import { useProjectsQuery } from '../../services/endpoints/project.endpoint';
 import ProjectList from './projects/ProjectList';
 import MainLoader from '../shared/loaders/MainLoader';
+import { SideMenu } from '../dashboard/ui/sideMenu';
 
 export const Manage = (): JSX.Element => {
   const { data: projects, isLoading: projectsLoading } = useProjectsQuery();

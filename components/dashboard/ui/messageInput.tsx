@@ -1,5 +1,5 @@
-import { BsMic, BsMicFill } from 'react-icons/bs';
-import React, { useContext, useEffect, useState } from 'react';
+import { BsMicFill } from 'react-icons/bs';
+import React, { useContext, useState } from 'react';
 import { IoIosAttach, IoMdSend } from 'react-icons/io';
 import { IoImageOutline } from 'react-icons/io5';
 
@@ -7,18 +7,12 @@ import { SocketContext } from '../../../contexts/socket.context';
 import { MessageTypes } from '../../../shared/types/message.types';
 import { userResponse } from '../../../shared/types/user.types';
 import { useSelector } from 'react-redux';
-import { getMediaStreamPermissions } from '../../../shared/utils/mediaStream/mediaStream.util';
 import { audioRecorder } from '../../../helpers/audioRecorder.helper';
 import { uploadAudio } from '../../../helpers/cloudinary.upload.helper';
 
 type MessageInputTypes = {
   createMessage: any;
   room: string;
-};
-
-type messageType = {
-  audio: string;
-  image: string;
 };
 
 export const MessageInput = ({
@@ -122,7 +116,7 @@ export const MessageInput = ({
             size={18}
           />
 
-          <label className="upload-image-chat">
+          <label className="upload-image-chat relative">
             <input
               ref={profileInputRef}
               type="file"

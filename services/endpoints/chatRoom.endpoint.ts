@@ -39,5 +39,8 @@ const chatRoomEndpoint = BaseApi.injectEndpoints({
   })
 });
 
-export const { useChatRoomMutation, useLazyChatRoomsQuery, useChatMessagesQuery } =
-  chatRoomEndpoint;
+export const {
+  useChatRoomMutation,
+  useLazyChatRoomsQuery,
+  useChatMessagesQuery
+} = chatRoomEndpoint;
