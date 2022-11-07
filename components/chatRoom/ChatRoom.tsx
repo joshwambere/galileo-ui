@@ -1,10 +1,9 @@
 import { SideMenu } from '../dashboard/ui/sideMenu';
-import { MessageCard } from '../dashboard/cards/MessageCard';
 import React, { useEffect } from 'react';
 import { useLazyChatRoomsQuery } from '../../services/endpoints/chatRoom.endpoint';
 import { ErrorMessage } from '../shared/messages/ErrorMessage';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
+
 import ChatRoomCard from './cards/chatRoomCard';
 
 const ChatRoom = (): JSX.Element => {
@@ -25,11 +24,17 @@ const ChatRoom = (): JSX.Element => {
   };
   return (
     <div className="flex  m-2">
-      <SideMenu />
+      <div className="sticky top-0">
+        <SideMenu />
+      </div>
       <div>
         {rooms &&
           rooms.data.map(room => (
-            <div className="mx-2" key={room._id} onClick={() => _activateRoom(room._id)}>
+            <div
+              className="mx-2"
+              key={room._id}
+              onClick={() => _activateRoom(room._id)}
+            >
               <ChatRoomCard room={room} key={room._id} />
             </div>
           ))}

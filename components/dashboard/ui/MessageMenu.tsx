@@ -8,7 +8,7 @@ type MessageMenuTypes = {
 
 export const MessageMenu: FC<MessageMenuTypes> = ({ children }) => {
   return (
-    <div className="flex flex-col w-1/5 border-r-2">
+    <div className="flex flex-col border-r-2 h-screen">
       <div className="back-icon flex justify-end pt-3">
         <MdOutlineKeyboardArrowLeft className="text-[#717377]" size={24} />
         <MdOutlineKeyboardArrowLeft

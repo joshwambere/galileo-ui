@@ -1,6 +1,6 @@
 const hRange = [0, 360];
-const sRange = [0, 13];
-const lRange = [20, 50];
+const sRange = [0, 210];
+const lRange = [0, 40];
 
 //Hash function to generate a color for the avatar
 const getHashOfString = (name: string) => {

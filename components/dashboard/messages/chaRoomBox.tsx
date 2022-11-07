@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { generateHSL } from '../../../shared/utils/avatar/AvatarColorUtil';
 import { generateInitials } from '../../../shared/utils/avatar/avatarInitial.util';
 import { AiOutlineMore } from 'react-icons/ai';
@@ -8,6 +8,7 @@ import { ChatMessageItem } from '../cards/chatMessageItem';
 import { useChatScroll } from '../../../hooks/scrollTop';
 import { Room } from '../../../shared/types/chatRoom.types';
 import { MessageTypes } from '../../../shared/types/message.types';
+import { Info } from '../../chatRoom/Info';
 
 type ChatRoomBoxTypes = {
   chatRoom: Room;
@@ -18,17 +19,19 @@ export const ChaRoomBox = ({
   chatRoom,
   chatRoomMessage
 }: ChatRoomBoxTypes): JSX.Element => {
-  const [messages, setMessages] = React.useState(chatRoomMessage);
+  const [msgz, setMsgz] = useState(chatRoomMessage);
+  useEffect(() => {
+    setMsgz(chatRoomMessage);
+  }, [chatRoomMessage]);
 
   const messageHandler = (newMessage: MessageTypes) => {
-    setMessages([...chatRoomMessage, newMessage]);
+    setMsgz([...chatRoomMessage, newMessage]);
   };
 
-  const boxRef: React.MutableRefObject<HTMLDivElement> =
-    useChatScroll(chatRoomMessage);
+  const boxRef: React.MutableRefObject<HTMLDivElement> = useChatScroll(msgz);
   return (
-    <div className="messageBox w-full flex flex-col h-screen ">
-      <>
+    <div className="messageBox w-full grid grid-cols-8 h-screen">
+      <div className=" col-span-6 border-r-2 overflow-y-scroll overflow-y-visible relative ">
         <div className="top-bar py-2 px-3 border-y-2 w-full flex items-center justify-between ">
           <div className="room flex items-center">
             <div
@@ -49,16 +52,19 @@ export const ChaRoomBox = ({
         </div>
 
         <MessageList ref={boxRef}>
-          {messages &&
-            messages.map((item, index) => (
+          {msgz &&
+            msgz.map((item, index) => (
               <ChatMessageItem key={index} message={item} />
             ))}
         </MessageList>
 
-        <div className="inputMessage py-3 px-2 ">
+        <div className="inputMessage py-3 px-2 sticky left-0 right-0  bottom-0">
           <MessageInput room={chatRoom._id} createMessage={messageHandler} />
         </div>
-      </>
+      </div>
+      <div className="roomDetail col-span-2 grid w-full overflow-y-scroll">
+        <Info chatRoom={chatRoom} />
+      </div>
     </div>
   );
 };

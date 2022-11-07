@@ -40,13 +40,10 @@ export const Dashboard = (): JSX.Element => {
   });
 
   const activeRoomHandler = (room: Room) => {
-    socket.emit('join:room', {
-      sender: (user && user.userName) || (localUser && localUser.userName),
-      chatRoom: activeRoom,
-      user_id: (user && user._id) || (localUser && localUser._id)
-    });
     setActiveRoom(room._id);
   };
+
+  const room = rooms?.data.filter(room => room._id === activeRoom);
 
   useEffect(() => {
     const initialUser = typeof user === 'string' ? JSON.parse(user) : user;
@@ -58,36 +55,43 @@ export const Dashboard = (): JSX.Element => {
         chatRoom: activeRoom,
         user_id: initialLocalUser && initialLocalUser._id
       });
+      socket.emit('users:online', { id: activeRoom });
     }
-  }, [activeRoom, user]);
-  const room = rooms?.data.filter(room => room._id === activeRoom);
+  }, [activeRoom]);
+
   return (
     <SocketContext.Provider value={socketConnection}>
-      <div className="h-screen flex flex-row">
-        <SideMenu />
+      <div className="h-screen flex">
+        <div className="sticky top-0">
+          <SideMenu />
+        </div>
 
-        <MessageMenu>
-          {rooms && rooms.data.length > 0 ? (
-            rooms.data.map(room => (
-              <MessageCard
+        <div className="sticky top-0 h-screen w-1/5">
+          <MessageMenu>
+            {rooms && rooms.data.length > 0 ? (
+              rooms.data.map(room => (
+                <MessageCard
+                  chatRoom={room}
+                  activeRoomHandler={activeRoomHandler}
+                  key={room._id}
+                />
+              ))
+            ) : (
+              <Image src={EmptyImage} alt="empty" className="emptyImages" />
+            )}
+          </MessageMenu>
+        </div>
+
+        <div className="h-screen flex-1">
+          {room &&
+            room.map(room => (
+              <ChaRoomBox
+                chatRoomMessage={messages}
                 chatRoom={room}
-                activeRoomHandler={activeRoomHandler}
                 key={room._id}
               />
-            ))
-          ) : (
-            <Image src={EmptyImage} alt="empty" className="emptyImages" />
-          )}
-        </MessageMenu>
-
-        {room &&
-          room.map(room => (
-            <ChaRoomBox
-              chatRoomMessage={messages}
-              chatRoom={room}
-              key={room._id}
-            />
-          ))}
+            ))}
+        </div>
       </div>
     </SocketContext.Provider>
   );

@@ -42,7 +42,7 @@ export const SideMenu = (): JSX.Element => {
   };
 
   return (
-    <div className="side-menu flex-col items-center h-screen border-r-2 py-4 px-3 relative">
+    <div className="side-menu  flex-col items-center h-screen border-r-2 py-4 px-3 relative">
       <div className="flex icon-group pt-6 pb-3">
         <div className="rounded-3xl bg-[#f3f3f5] p-2">
           <FcMenu
