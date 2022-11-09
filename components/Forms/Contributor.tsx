@@ -21,7 +21,9 @@ const Projects = ({ open, setOpen, id }: Props): JSX.Element => {
         setOpen(false);
       })
       .catch((err: any) => {
-        ErrorMessage(err?.data.message);
+        ErrorMessage(
+          err?.data.message ? err?.data.message : 'Error inviting user'
+        );
       });
   };
   return (

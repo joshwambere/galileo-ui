@@ -36,7 +36,7 @@ export const Dashboard = (): JSX.Element => {
 
   const localUser = JSON.parse(localStorage.getItem('_galileo_usr') || '{}');
   socket.on('message:prev', (data: any) => {
-    setMessages(data.message);
+    setMessages(data.messages);
   });
 
   const activeRoomHandler = (room: Room) => {

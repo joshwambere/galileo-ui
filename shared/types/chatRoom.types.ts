@@ -36,6 +36,7 @@ export type IUserId = {
   email: string;
   employeeId: string;
   online: boolean;
+  profileImage: string;
 };
 
 export interface ChatRoomResponse {

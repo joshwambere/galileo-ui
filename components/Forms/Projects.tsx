@@ -11,8 +11,7 @@ type Props = {
 };
 
 const Projects = ({ open, setOpen }: Props): JSX.Element => {
-  const [project, { isLoading: projectLoading }] =
-    useProjectMutation();
+  const [project, { isLoading: projectLoading }] = useProjectMutation();
   const onFinish = (values: any) => {
     project({ name: values?.projectName, description: values?.description })
       .unwrap()
@@ -21,7 +20,9 @@ const Projects = ({ open, setOpen }: Props): JSX.Element => {
         setOpen(false);
       })
       .catch((err: any) => {
-        ErrorMessage(err?.data.message);
+        ErrorMessage(
+          err?.data.message ? err?.data.message : 'Error creating project'
+        );
       });
   };
   return (

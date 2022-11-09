@@ -54,7 +54,7 @@ export const ChaRoomBox = ({
         <MessageList ref={boxRef}>
           {msgz &&
             msgz.map((item, index) => (
-              <ChatMessageItem key={index} message={item} />
+              <ChatMessageItem key={item._id! + index} message={item} />
             ))}
         </MessageList>
 

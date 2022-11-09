@@ -1,4 +1,5 @@
 import ChatRoom from '../../components/chatRoom/ChatRoom';
+import WithPrivateRoute from '../../components/wrappers/PrivateRoutes';
 
 const chatroom = (): JSX.Element => {
   return (
@@ -8,4 +9,4 @@ const chatroom = (): JSX.Element => {
   );
 };
 
-export default chatroom;
+export default WithPrivateRoute(chatroom);

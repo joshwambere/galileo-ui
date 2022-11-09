@@ -27,11 +27,11 @@ const ChatRoom = (): JSX.Element => {
       <div className="sticky top-0">
         <SideMenu />
       </div>
-      <div>
+      <div className="flex gap-2 pt-2">
         {rooms &&
           rooms.data.map(room => (
             <div
-              className="mx-2"
+              className="mx-2 "
               key={room._id}
               onClick={() => _activateRoom(room._id)}
             >

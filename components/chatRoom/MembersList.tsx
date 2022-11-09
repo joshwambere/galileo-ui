@@ -19,8 +19,8 @@ export const MembersList = ({ members }: Props): JSX.Element => {
         Participants
       </span>
       {onlineMembers &&
-        onlineMembers.map(member => (
-          <RoomMember key={member.user_id._id} member={member} />
+        onlineMembers.map((member, index) => (
+          <RoomMember key={index} member={member} />
         ))}
     </>
   );

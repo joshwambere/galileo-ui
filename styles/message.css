@@ -54,12 +54,12 @@
     justify-content: flex-end;
 }
 .speech-bubble-right::before {
-    border: 12.5px solid transparent;
+    border: 10.5px solid transparent;
     border-top: 12.5px solid #d51f97;
     border-bottom: 0;
     height: 0;
     width: 0;
-    border-top-width: 25px;
+    border-top-width: 13px;
     content: "";
     display: block;
     position: absolute;
@@ -127,4 +127,7 @@
     height: 100%;
     opacity: 0;
     cursor: pointer;
+}
+.message-wrapper{
+    word-break: break-all;
 }

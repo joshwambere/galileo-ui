@@ -49,7 +49,7 @@ const Register = (): JSX.Element => {
         verifyRedirect();
       })
       .catch((err: any) => {
-        ErrorMessage(err.message);
+        ErrorMessage(err.message ? err.message : 'Error signing up');
       });
   };
   return (

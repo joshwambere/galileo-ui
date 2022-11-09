@@ -75,6 +75,9 @@
     padding: 0px 2rem !important;
     border-radius: 1.5rem !important;
 }
+.disabled-btn{
+    background-color: #670c48!important;
+}
 
 .btn_dar_red_icons{
     display: flex!important;

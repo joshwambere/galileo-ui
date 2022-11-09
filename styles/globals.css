@@ -38,6 +38,9 @@ a {
 *::-webkit-scrollbar-thumb {
   background-color: #fff;
 }
+#__next{
+  min-height: 100vh;
+}
 
 .right-bubble::-webkit-media-controls-play-button,
 .right-bubble::-webkit-media-controls-panel {
@@ -54,6 +57,13 @@ a {
 .image-message-container{
   min-height: 220px;
 }
+.hidden-input{
+  display: none!important;
+}
+.edit-form-input{
+  margin-top: 1rem!important;
+}
+
 
 
 .ant-form-item{
@@ -119,3 +129,4 @@ a {
   top: 2rem;
   left: 0;
 }
+
