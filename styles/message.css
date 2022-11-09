@@ -16,7 +16,7 @@
 
     margin: 1rem;
     margin-bottom: 40px;
-    padding: 1.5rem 2rem;
+    padding: .5rem 1rem;
     position: relative;
     font-family: "Source Sans Pro", sans-serif;
     font-size: 1.2rem;
@@ -54,22 +54,22 @@
     justify-content: flex-end;
 }
 .speech-bubble-right::before {
-    border: 12.5px solid transparent;
+    border: 10.5px solid transparent;
     border-top: 12.5px solid #d51f97;
     border-bottom: 0;
     height: 0;
     width: 0;
-    border-top-width: 25px;
+    border-top-width: 13px;
     content: "";
     display: block;
     position: absolute;
-    right: 1.5rem;
-    bottom: -25px;
+    right: .75rem;
+    bottom: -20px;
     transform-origin: center;
     transform: rotate(135deg) skew(-25deg) translateY(16.6666666667px);
 }
 
-.speech-bubble cite {
+.speech-bubble cite, .left-bubble-cont cite {
     position: absolute;
     bottom: -2rem;
     left: 4.5rem;
@@ -79,22 +79,22 @@
     letter-spacing: 0.5px;
     color: #6f7074;
 }
-.speech-bubble cite span{
+.speech-bubble cite span .right-bubble-cont cite span{
     font-weight: 500;
     color: #d51f97;
 }
 
-.speech-bubble-right cite {
+.speech-bubble-right cite , .right-bubble-cont cite{
     position: absolute;
-    bottom: -2rem;
-    right: 3.5rem;
+    bottom: -1.5rem;
+    right: 3rem;
     font-size: 1rem;
     font-style: normal;
     font-weight: 300;
     letter-spacing: 0.5px;
     color: #6f7074;
 }
-.speech-bubble-right cite span{
+.speech-bubble-right cite span, .left-bubble-cont cite span{
     font-weight: 500;
     color: #d51f97;
 }
@@ -117,6 +117,7 @@
 .inputMessage{
     position:sticky;
     bottom: 0;
+    background: #fff;
 }
 .upload-image-chat > input {
     position: absolute;
@@ -126,4 +127,7 @@
     height: 100%;
     opacity: 0;
     cursor: pointer;
+}
+.message-wrapper{
+    word-break: break-all;
 }

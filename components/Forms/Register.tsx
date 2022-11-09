@@ -15,18 +15,33 @@ import {
 } from '../../shared/utils/validations/formValidation';
 import { SuccessMessage } from '../shared/messages/SuccessMessage';
 import { ErrorMessage } from '../shared/messages/ErrorMessage';
-import { loginRedirect, verifyRedirect } from "../../helpers/redirect.helper";
+import { verifyRedirect } from '../../helpers/redirect.helper';
+import { uploadAudio } from '../../helpers/cloudinary.upload.helper';
+import React from 'react';
+import { routes } from '../../config/router.config';
+import { useRouter } from 'next/router';
 
 const Register = (): JSX.Element => {
   const [signup, { isLoading: signupLoading }] = useSignupMutation();
-  const onFinish = (data: any) => {
+  const [profileImage, setProfileImage] = React.useState<string>('');
+  const router = useRouter();
+
+  const uploadProfileImage = (e: any) => {
+    const file = e.target.files[0];
+    uploadAudio(file).then(res => {
+      if (res) {
+        setProfileImage(res);
+      }
+    });
+  };
+  const onFinish = async (data: any) => {
     signup({
       name: data?.name,
       userName: data?.username,
       email: data?.email,
       employeeId: data?.emp,
       password: data?.password,
-      profileImage: data.profile
+      profileImage: profileImage ? profileImage : ''
     })
       .unwrap()
       .then((res: any) => {
@@ -34,7 +49,7 @@ const Register = (): JSX.Element => {
         verifyRedirect();
       })
       .catch((err: any) => {
-        ErrorMessage(err.message);
+        ErrorMessage(err.message ? err.message : 'Error signing up');
       });
   };
   return (
@@ -138,6 +153,8 @@ const Register = (): JSX.Element => {
                       type="file"
                       placeholder="Upload Profile Picture"
                       name="profile"
+                      accept="image/png, image/gif, image/jpeg"
+                      onChange={e => uploadProfileImage(e)}
                     />
                   </Form.Item>
                 </div>
@@ -197,7 +214,10 @@ const Register = (): JSX.Element => {
           </Form>
           <div className="pt-4">
             <span>Already have an account?</span>
-            <span className="text-[#d51f97] ml-2 font-bold  hover:cursor-pointer">
+            <span
+              className="text-[#d51f97] ml-2 font-bold  hover:cursor-pointer"
+              onClick={() => router.replace(routes.login.url)}
+            >
               Login
             </span>
           </div>

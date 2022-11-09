@@ -26,6 +26,46 @@ a {
   box-sizing: border-box;
 }
 
+*::-webkit-scrollbar {
+  width: 15px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #fff;
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #fff;
+}
+#__next{
+  min-height: 100vh;
+}
+
+.right-bubble::-webkit-media-controls-play-button,
+.right-bubble::-webkit-media-controls-panel {
+  background-color: #d51f97;
+  color: #000;
+  margin-left: auto;
+}
+.left-bubble::-webkit-media-controls-play-button,
+.left-bubble::-webkit-media-controls-panel {
+  background-color: #411532;
+  color: #411532;
+}
+
+.image-message-container{
+  min-height: 220px;
+}
+.hidden-input{
+  display: none!important;
+}
+.edit-form-input{
+  margin-top: 1rem!important;
+}
+
+
+
 .ant-form-item{
   width: 100%;
 }
@@ -89,3 +129,4 @@ a {
   top: 2rem;
   left: 0;
 }
+

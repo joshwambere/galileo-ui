@@ -6,6 +6,7 @@ export interface MessageTypes {
   sender: string;
   status: string;
   createdAt: Date;
+  senderName?: string;
 }
 
 export interface CreateMessage {

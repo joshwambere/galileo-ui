@@ -8,15 +8,36 @@ export interface ChatRoom {
   messages: MessageTypes[];
   members: Object[];
 }
-export interface Room{
+export interface Room {
   _id: string;
   name: string;
   project: string;
   status: string;
   description: string;
   __v: number;
+  creator: ICreator;
+  createdAt: Date;
+  members: IMember[];
 }
+export type ICreator = {
+  _id: string;
+  project_id: string;
+  user_id: IUserId;
+};
+export type IMember = {
+  _id: string;
+  project_id: string;
+  user_id: IUserId;
+};
 
+export type IUserId = {
+  _id: string;
+  userName: string;
+  email: string;
+  employeeId: string;
+  online: boolean;
+  profileImage: string;
+};
 
 export interface ChatRoomResponse {
   data: Room;
@@ -32,7 +53,7 @@ export interface ChatRoomRequest {
 }
 
 export interface ChatRoomMessageResponse {
- data: ChatRoom;
+  data: ChatRoom;
   message: string;
 }
 

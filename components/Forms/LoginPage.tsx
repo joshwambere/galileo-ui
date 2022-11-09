@@ -25,7 +25,7 @@ import { routes } from '../../config/router.config';
 
 const LoginPage = (): JSX.Element => {
   const [login, { isLoading: loginLoading }] = useLoginMutation();
-  const [userInfo, { isLoading: infoLoading }] = useUserInfoMutation();
+  const [userInfo] = useUserInfoMutation();
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -42,14 +42,14 @@ const LoginPage = (): JSX.Element => {
             dispatch(setUserInfo({ user: res.data }));
           })
           .catch(e => {
-            ErrorMessage(e.message);
+            ErrorMessage(e.message ? e.message : 'Error getting user info');
           });
       })
-      .catch((err: any) => {
-        if (err.status === 'FETCH_ERROR') {
+      .catch((e: any) => {
+        if (e.status === 'FETCH_ERROR') {
           ErrorMessage('Network Error');
         } else {
-          ErrorMessage("something happened, we're working on it");
+          ErrorMessage(e.message ? e.message : 'Error loging in');
         }
       });
   };

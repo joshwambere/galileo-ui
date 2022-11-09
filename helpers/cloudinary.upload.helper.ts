@@ -15,5 +15,3 @@ export const uploadAudio = async (file: Blob) => {
     .then(res => res.secure_url)
     .catch(err => console.log(err));
 };
-
-

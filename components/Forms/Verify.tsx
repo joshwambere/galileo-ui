@@ -43,7 +43,7 @@ const VerifyForm = (): JSX.Element => {
           input5.current?.focus();
           break;
         case 5:
-          input5.current?.focus();
+          input6.current?.focus();
           break;
         case 6:
           buttonRef.current?.focus();
@@ -63,7 +63,9 @@ const VerifyForm = (): JSX.Element => {
           loginRedirect();
         })
         .catch(_e => {
-          ErrorMessage("something happened, we're working on it");
+          ErrorMessage(
+            _e.data.message ? _e.data.message : 'something went wrong'
+          );
         });
     }
   };

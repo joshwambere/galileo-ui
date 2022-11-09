@@ -4,7 +4,6 @@ import {
   AiOutlineProject,
   AiOutlineUsergroupAdd
 } from 'react-icons/ai';
-import { FcMenu } from 'react-icons/fc';
 import { IoMdAdd } from 'react-icons/io';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +15,11 @@ import { ErrorMessage } from '../../shared/messages/ErrorMessage';
 import { useRouter } from 'next/router';
 import { changeRoute } from '../../../helpers/routeHandler.helper';
 import { routes } from '../../../config/router.config';
+import { generateHSL } from '../../../shared/utils/avatar/AvatarColorUtil';
+import { generateInitials } from '../../../shared/utils/avatar/avatarInitial.util';
+import React from 'react';
+import Image from 'next/image';
+import { Tooltip } from 'antd';
 
 export const SideMenu = (): JSX.Element => {
   const token = useSelector((state: RootState) => state.auth.token);
@@ -24,7 +28,8 @@ export const SideMenu = (): JSX.Element => {
   const router = useRouter();
 
   const decodedToken: any = jwt.decode(token ? token! : localToken!);
-  const { role } = decodedToken as JwtPayload & token;
+  const { role, _id } = decodedToken as JwtPayload & token;
+  const user = useSelector((state: any) => state.auth.user);
 
   const [userLogout, { isLoading: Loading }] = useUserLogoutMutation();
 
@@ -42,24 +47,44 @@ export const SideMenu = (): JSX.Element => {
   };
 
   return (
-    <div className="side-menu flex-col items-center h-screen border-r-2 py-4 px-3 relative">
+    <div className="side-menu  flex-col items-center h-screen border-r-2 py-4 px-3 relative">
       <div className="flex icon-group pt-6 pb-3">
-        <div className="rounded-3xl bg-[#f3f3f5] p-2">
-          <FcMenu
-            className="hover:cursor-pointer hover:text-[#d51f97]"
-            color="#8c98a0"
-            size="20"
-          />
+        <div
+          className="rounded-3xl bg-[#f3f3f5] p-2 flex  justify-center items-center hover:cursor-pointer"
+          onClick={() => router.replace(routes.profile.url)}
+        >
+          {user ? (
+            <Tooltip placement="right" title={'Account'}>
+              <Image
+                src={user.profileImage}
+                width={20}
+                height={20}
+                className="rounded-full"
+                alt="profile"
+              />
+            </Tooltip>
+          ) : (
+            <Tooltip placement="right" title={'Account'}>
+              <div
+                className="Avatar hover:cursor"
+                style={{ background: _id && generateHSL(_id) }}
+              >
+                {user && generateInitials(user.userName)}
+              </div>
+            </Tooltip>
+          )}
         </div>
       </div>
       <div
         className="flex icon-group pt-5 justify-center"
         onClick={() => changeRoute(routes.chat.url)}
       >
-        <FiInbox
-          size={24}
-          className="hover:cursor-pointer hover:text-[#d51f97]"
-        />
+        <Tooltip placement="right" title={routes.chat.name}>
+          <FiInbox
+            size={24}
+            className="hover:cursor-pointer hover:text-[#d51f97]"
+          />
+        </Tooltip>
       </div>
       {role && role === 'PM' && (
         <>
@@ -67,19 +92,23 @@ export const SideMenu = (): JSX.Element => {
             className="flex icon-group pt-5 justify-center"
             onClick={() => changeRoute(routes.pm.url)}
           >
-            <AiOutlineProject
-              size={24}
-              className="hover:cursor-pointer hover:text-[#d51f97]"
-            />
+            <Tooltip placement="right" title={routes.pm.name}>
+              <AiOutlineProject
+                size={24}
+                className="hover:cursor-pointer hover:text-[#d51f97]"
+              />
+            </Tooltip>
           </div>
           <div
             className="flex icon-group pt-5 justify-center"
             onClick={() => changeRoute(routes.chatRoom.url)}
           >
-            <AiOutlineUsergroupAdd
-              className="hover:cursor-pointer hover:text-[#d51f97]"
-              size={24}
-            />
+            <Tooltip placement="right" title={routes.chatRoom.name}>
+              <AiOutlineUsergroupAdd
+                className="hover:cursor-pointer hover:text-[#d51f97]"
+                size={24}
+              />
+            </Tooltip>
           </div>
         </>
       )}
@@ -93,10 +122,16 @@ export const SideMenu = (): JSX.Element => {
         onClick={Logout}
         className="logout flex flex-col items-center absolute bottom-0 hover:cursor-pointer pb-3"
       >
-        <AiOutlineLogout className="text-[#d51f97]" />
-        <p className="text-[#8c98a0] text-sm pt-1 hover:text-[#d51f97]">
-          Logout
-        </p>
+        <Tooltip
+          placement="right"
+          title="Logout"
+          className="flex justify-center flex-col items-center"
+        >
+          <AiOutlineLogout className="text-[#d51f97]" />
+          <p className="text-[#8c98a0] text-sm pt-1 hover:text-[#d51f97]">
+            Logout
+          </p>
+        </Tooltip>
       </div>
     </div>
   );

@@ -3,9 +3,13 @@ import {
   userInfoResponse,
   userLogin,
   userLoginResponse,
+  userProfileRequest,
+  userProfileResponse,
   UserSignupRequest,
-  UserSignupResponse, UserVerifyRequest, UserVerifyResponse
-} from "../../shared/types/user.types";
+  UserSignupResponse,
+  UserVerifyRequest,
+  UserVerifyResponse
+} from '../../shared/types/user.types';
 
 const loginEndpoint = BaseApi.injectEndpoints({
   endpoints: builder => ({
@@ -22,7 +26,8 @@ const loginEndpoint = BaseApi.injectEndpoints({
         url: `auth/userInfo`,
         method: 'GET',
         body: credentials
-      })
+      }),
+      invalidatesTags: ['UserInfo']
     }),
     signup: builder.mutation<UserSignupResponse, UserSignupRequest>({
       query: credentials => ({
@@ -44,6 +49,14 @@ const loginEndpoint = BaseApi.injectEndpoints({
         method: 'GET',
         body: credentials
       })
+    }),
+    updateProfile: builder.mutation<userProfileResponse, userProfileRequest>({
+      query: credentials => ({
+        url: `auth/updateProfile`,
+        method: 'POST',
+        body: credentials
+      }),
+      invalidatesTags: ['UserInfo']
     })
   })
 });
@@ -53,5 +66,6 @@ export const {
   useUserInfoMutation,
   useUserLogoutMutation,
   useSignupMutation,
-  useVerifyMutation
+  useVerifyMutation,
+  useUpdateProfileMutation
 } = loginEndpoint;

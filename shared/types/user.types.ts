@@ -40,3 +40,13 @@ export type UserVerifyResponse = {
   data?: any;
   message: string;
 };
+
+export type userProfileResponse = {
+  success: boolean;
+  message: string;
+};
+
+export type userProfileRequest = {
+  userName: string;
+  profileImage: string;
+};

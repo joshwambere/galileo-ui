@@ -28,7 +28,9 @@ export const MessageCard = ({
         </div>
         <div className="flex items-center">
           <FiUsers className="text-[#6f7074]" />
-          <p className="pl-1 m-0 text-[#6f7074]">12</p>
+          <p className="pl-1 m-0 text-[#6f7074]">
+            {chatRoom.members && chatRoom.members.length}
+          </p>
         </div>
       </div>
       <div className="ChatRoomDetails py-2 px-4">

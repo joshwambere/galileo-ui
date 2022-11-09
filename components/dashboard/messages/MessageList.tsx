@@ -10,7 +10,7 @@ export const MessageList: FC<MessageListTypes> = React.forwardRef(
   ({ children }, ref: ForwardedRef<HTMLDivElement>): JSX.Element => {
     return (
       <>
-        <div ref={ref} className="messageList flex-1">
+        <div ref={ref} className="messageList flex-1 min-h-full">
           {children}
         </div>
       </>
