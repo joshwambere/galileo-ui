@@ -61,9 +61,9 @@ const LoginPage = (): JSX.Element => {
         style={{
           padding: '0 1rem'
         }}
-        className="login-form px-2 lg:w-1/3 sm:w-2/3 sm:mr-4  flex flex-col items-center"
+        className="login-form lg:px-2 sm:px-1 lg:w-1/3 sm:w-2/3 xs:w-full sm:mr-4  xs:mx-1 flex flex-col items-center"
       >
-        <div className="px-4 h-full flex flex-col justify-center form-inputs lg:mb-6">
+        <div className="lg:px-4 sm:px-2 h-full flex flex-col justify-center form-inputs lg:mb-6">
           <div>
             <div className="title-section lg:pb-7 sm:pb-3">
               <div className="flex flex-col pb-2">
@@ -78,12 +78,12 @@ const LoginPage = (): JSX.Element => {
             </div>
             <div className="login-divider bg-[#d9e0e5] h-0.5 w-full opacity-3 mb-4"></div>
           </div>
-          <div className="w-full items-center pt-8">
+          <div className="w-full items-center lg:pt-8 xs:pt-4">
             <div className="group-input flex flex-col py-2">
               <label htmlFor="email" className="text-[#8c98a0]">
                 Email / username
               </label>
-              <div className="flex relative items-center bg-[#f1f6fa] rounded-3xl px-4 py-2 focus:bg-white input-group mt-2">
+              <div className="flex relative items-center bg-[#f1f6fa] rounded-3xl px-4 lg:py-2 sm:py-1 focus:bg-white input-group mt-2">
                 <TiUserOutline color="#8c98a0" size="20" />
                 <Form.Item
                   name="username"
@@ -103,7 +103,7 @@ const LoginPage = (): JSX.Element => {
               <label htmlFor="password" className="text-[#8c98a0] pt-4">
                 Password
               </label>
-              <div className=" relative flex items-center bg-[#f1f6fa] rounded-3xl px-4 py-2 focus:bg-white input-group mt-2">
+              <div className=" relative flex items-center bg-[#f1f6fa] rounded-3xl px-4 lg:py-2 sm:py-1 focus:bg-white input-group mt-2">
                 <FiLock color="#8c98a0" />
 
                 <Form.Item

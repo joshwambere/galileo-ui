@@ -30,8 +30,8 @@ export const ChaRoomBox = ({
 
   const boxRef: React.MutableRefObject<HTMLDivElement> = useChatScroll(msgz);
   return (
-    <div className="messageBox w-full grid grid-cols-8 h-screen">
-      <div className=" col-span-6 border-r-2 overflow-y-scroll overflow-y-visible relative ">
+    <div className="messageBox grid grid-cols-8 h-screen">
+      <div className=" messageBox-chat col-span-6 border-r-2 overflow-y-scroll overflow-y-visible relative ">
         <div className="top-bar py-2 px-3 border-y-2 w-full flex items-center justify-between ">
           <div className="room flex items-center">
             <div
@@ -62,7 +62,7 @@ export const ChaRoomBox = ({
           <MessageInput room={chatRoom._id} createMessage={messageHandler} />
         </div>
       </div>
-      <div className="roomDetail col-span-2 grid w-full overflow-y-scroll">
+      <div className="roomDetail col-span-2 grid overflow-y-scroll">
         <Info chatRoom={chatRoom} />
       </div>
     </div>

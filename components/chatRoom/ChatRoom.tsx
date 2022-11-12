@@ -23,8 +23,8 @@ const ChatRoom = (): JSX.Element => {
     router.replace(`/?room=${id}`);
   };
   return (
-    <div className="flex  m-2">
-      <div className="sticky top-0">
+    <div className="flex  m-2 min-h-screen">
+      <div className="sticky top-0 dashboard-sidemenu">
         <SideMenu />
       </div>
       <div className="flex gap-2 pt-2">

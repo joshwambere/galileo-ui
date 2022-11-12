@@ -2,7 +2,7 @@ import SearchBar from './ui/searchBar';
 import Filter from './ui/Filter';
 import Project from '../modals/Project';
 import Projects from '../Forms/Projects';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useProjectsQuery } from '../../services/endpoints/project.endpoint';
 import ProjectList from './projects/ProjectList';
 import MainLoader from '../shared/loaders/MainLoader';
@@ -15,8 +15,10 @@ export const Manage = (): JSX.Element => {
     setOpen(false);
   };
   return (
-    <div className="flex bg-[#f9f9fb]">
-      <SideMenu />
+    <div className="dashboard-cont flex bg-[#f9f9fb] min-h-screen">
+      <div className="sticky top-0 dashboard-sidemenu">
+        <SideMenu />
+      </div>
       <div className="w-full px-7 py-2 flex-col">
         <SearchBar />
         <Filter setOpen={setOpen} />

@@ -49,7 +49,7 @@ export const MessageInput = ({
         chatRoom: room,
         message: inputRef.current?.value!,
         messageType: 'text',
-        sender: user._id,
+        sender: user && user._id,
         status: 'SENT',
         createdAt: new Date()
       };

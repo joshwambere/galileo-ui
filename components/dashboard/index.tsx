@@ -61,36 +61,38 @@ export const Dashboard = (): JSX.Element => {
 
   return (
     <SocketContext.Provider value={socketConnection}>
-      <div className="h-screen flex">
-        <div className="sticky top-0">
+      <div className="dashboard-cont h-screen flex relative overflow-y-scroll">
+        <div className="sticky top-0 dashboard-sidemenu">
           <SideMenu />
         </div>
 
-        <div className="sticky top-0 h-screen w-1/5">
-          <MessageMenu>
-            {rooms && rooms.data.length > 0 ? (
-              rooms.data.map(room => (
-                <MessageCard
+        <div className="flex w-full">
+          <div className="sticky top-0 h-screen w-1/5 message-menu">
+            <MessageMenu>
+              {rooms && rooms.data.length > 0 ? (
+                rooms.data.map(room => (
+                  <MessageCard
+                    chatRoom={room}
+                    activeRoomHandler={activeRoomHandler}
+                    key={room._id}
+                  />
+                ))
+              ) : (
+                <Image src={EmptyImage} alt="empty" className="emptyImages" />
+              )}
+            </MessageMenu>
+          </div>
+
+          <div className="h-screen flex-1">
+            {room &&
+              room.map(room => (
+                <ChaRoomBox
+                  chatRoomMessage={messages}
                   chatRoom={room}
-                  activeRoomHandler={activeRoomHandler}
                   key={room._id}
                 />
-              ))
-            ) : (
-              <Image src={EmptyImage} alt="empty" className="emptyImages" />
-            )}
-          </MessageMenu>
-        </div>
-
-        <div className="h-screen flex-1">
-          {room &&
-            room.map(room => (
-              <ChaRoomBox
-                chatRoomMessage={messages}
-                chatRoom={room}
-                key={room._id}
-              />
-            ))}
+              ))}
+          </div>
         </div>
       </div>
     </SocketContext.Provider>
