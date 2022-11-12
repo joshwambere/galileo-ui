@@ -51,7 +51,7 @@ const ProjectCard = ({ data }: Props) => {
             <span className="flex items-center mt-2">
               <BsDot className="text-green-600" size={24} />
               <span className="text-[#8391a4] m-0 capitalize">
-                {data.status.toLowerCase()}
+                {data && data.status && data.status.toLowerCase()}
               </span>
             </span>
           </div>

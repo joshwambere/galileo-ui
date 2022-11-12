@@ -109,3 +109,42 @@ input::-webkit-inner-spin-button {
     display: flex;
     gap: .5rem;
 }
+
+@media screen and (max-width: 720px) {
+    .auth-wrapper{
+        justify-content: center;
+    }
+    .form-inputs{
+        padding: 0 .5rem;
+        margin-top: -3rem;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .login-form{
+        margin: 0 .5rem!important;
+        height: 70%;
+        width: 96%;
+    }
+    .form-inputs{
+        width: 90%;
+    }
+
+}
+
+
+@media screen and (max-width: 420px) and (max-height: 700px) {
+    .login-form{
+        height: 90%;
+    }
+}
+
+@media screen and (min-width: 422px) and (max-width: 652px) {
+    .login-form{
+        width: 80%;
+    }
+    .form-inputs{
+        width: 90%;
+    }
+}
+
