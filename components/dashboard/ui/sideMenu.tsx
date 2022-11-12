@@ -20,6 +20,7 @@ import { generateInitials } from '../../../shared/utils/avatar/avatarInitial.uti
 import React from 'react';
 import Image from 'next/image';
 import { Tooltip } from 'antd';
+import MainLoader from '../../shared/loaders/MainLoader';
 
 export const SideMenu = (): JSX.Element => {
   const token = useSelector((state: RootState) => state.auth.token);
@@ -48,6 +49,7 @@ export const SideMenu = (): JSX.Element => {
 
   return (
     <div className="side-menu  flex-col items-center h-screen border-r-2 py-4 px-3 relative">
+      {Loading ? <MainLoader /> : null}
       <div className="flex icon-group pt-6 pb-3">
         <div
           className="rounded-3xl bg-[#f3f3f5] p-2 flex  justify-center items-center hover:cursor-pointer"

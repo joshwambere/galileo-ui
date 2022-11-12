@@ -5,7 +5,7 @@ type Props = {
 };
 const ProjectList = ({ projects }: Props) => {
   return (
-    <div className="flex gap-2 pt-4">
+    <div className="flex gap-2 pt-4 flex-wrap">
       {projects &&
         projects.data.map((project, index) => (
           <ProjectCard data={project} key={index} />

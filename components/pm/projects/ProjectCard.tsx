@@ -27,7 +27,7 @@ const ProjectCard = ({ data }: Props) => {
       });
   };
   return (
-    <div className="bg-[#fff] lg:w-1/5 sm:w-1/2 p-3 rounded-xl border-2 hover:cursor-pointer">
+    <div className=" project-card bg-[#fff] lg:w-1/5 sm:w-1/2 p-3 rounded-xl border-2 hover:cursor-pointer">
       <div
         onClick={() =>
           changeRoute({ pathname: routes.project.url, query: { id: data._id } })
@@ -40,10 +40,6 @@ const ProjectCard = ({ data }: Props) => {
               {moment(data.createdAt).format('MMM Do YY')}
             </span>
           </div>
-          <span className="text-[#d51f97] flex items-center">
-            <AiOutlineUsergroupAdd className="mr-1" />
-            12
-          </span>
         </div>
         <div className="flex justify-between py-3">
           <div className="flex flex-col w-3/4">

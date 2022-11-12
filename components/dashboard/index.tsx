@@ -12,10 +12,13 @@ import EmptyImage from '../../public/assets/images/empty.png';
 import { useSelector } from 'react-redux';
 import { MessageTypes } from '../../shared/types/message.types';
 import { useRouter } from 'next/router';
+import MainLoader from '../shared/loaders/MainLoader';
 
 export const Dashboard = (): JSX.Element => {
-  const [chatRooms, { data: rooms, isSuccess: roomsSuccess }] =
-    useLazyChatRoomsQuery();
+  const [
+    chatRooms,
+    { data: rooms, isSuccess: roomsSuccess, isLoading: Loading }
+  ] = useLazyChatRoomsQuery();
 
   const [activeRoom, setActiveRoom] = useState<string | null>(null);
   const [messages, setMessages] = React.useState<MessageTypes[]>([]);
@@ -62,6 +65,7 @@ export const Dashboard = (): JSX.Element => {
   return (
     <SocketContext.Provider value={socketConnection}>
       <div className="dashboard-cont h-screen flex relative overflow-y-scroll">
+        {Loading ? <MainLoader /> : null}
         <div className="sticky top-0 dashboard-sidemenu">
           <SideMenu />
         </div>
