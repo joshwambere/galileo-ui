@@ -3,7 +3,7 @@ import PMPrivateRoute from '../../components/wrappers/PmRoutes';
 
 const manage = (): JSX.Element => {
   return (
-    <div className="p-0">
+    <div className="p-0 min-h-screen">
       <Manage />
     </div>
   );

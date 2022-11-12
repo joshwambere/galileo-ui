@@ -1,0 +1,68 @@
+@media screen and  (max-width: 767px) {
+    .dashboard-cont{
+        position: relative;
+    }
+    .dashboard-sidemenu{
+        position: absolute!important;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        top: auto!important;
+        height: 4rem;
+        z-index: 30;
+        background: #fff;
+    }
+    .side-menu{
+        height: 100%!important;
+        display: flex;
+        flex-direction: row!important;
+        justify-content: space-around;
+    }
+    .side-menu > .logout{
+        position: relative!important;
+    }
+    .roomDetail{
+        display: none!important;
+    }
+    .messageBox{
+        grid-template-columns: 1fr!important;
+        height: calc(100vh - 4rem)!important;
+    }
+    .message-Card{
+        flex-direction: column;
+    }
+    .topRow > div:nth-child(2){
+        display: none!important;
+
+    }
+    .topRow > div:nth-child(1){
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+    }
+    .ChatRoomDetails{
+        display: none!important;
+    }
+    .logout{
+        padding: 0!important;
+    }
+    .logout>span>p{
+        padding: 0!important;
+        margin: 0!important;
+    }
+}
+@media screen and (max-width: 460px) {
+    .message-menu >div > .back-icon , .message-menu >div > div:nth-child(2), .message-menu >div > div:nth-child(3){
+        display: none!important;
+    }
+    .topRow {
+       padding: 0!important;
+       display: flex!important;
+        justify-content: center!important;
+        align-items: center;
+    }
+    .topRow >div:nth-child(1) >p{
+        display: none!important;
+    }
+}

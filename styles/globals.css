@@ -2,6 +2,7 @@
 @import url('./chatRoom.css');
 @import url("message.css");
 @import url("ngProgress.css");
+@import url("./Dashboard.css");
 
 @tailwind base;
 @tailwind components;
