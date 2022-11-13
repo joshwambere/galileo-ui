@@ -65,4 +65,7 @@
     .topRow >div:nth-child(1) >p{
         display: none!important;
     }
+    .project-card{
+        width: 100%!important;
+    }
 }

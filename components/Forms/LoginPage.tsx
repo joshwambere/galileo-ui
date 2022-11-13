@@ -120,7 +120,10 @@ const LoginPage = (): JSX.Element => {
                 </Form.Item>
               </div>
             </div>
-            <span className="flex justify-end text-[#8c98a0] pt-2">
+            <span
+              className="flex justify-end text-[#8c98a0] pt-2 hover:text-[#d51f97] hover:cursor-pointer"
+              onClick={() => router.replace(routes.forgotPassword.url)}
+            >
               Forgot Password
             </span>
             <Button

@@ -5,9 +5,10 @@ import { ErrorMessage } from '../shared/messages/ErrorMessage';
 import { useRouter } from 'next/router';
 
 import ChatRoomCard from './cards/chatRoomCard';
+import MainLoader from '../shared/loaders/MainLoader';
 
 const ChatRoom = (): JSX.Element => {
-  const [chatRooms, { data: rooms, isSuccess: roomsSuccess }] =
+  const [chatRooms, { data: rooms, isLoading: Loading }] =
     useLazyChatRoomsQuery();
 
   const router = useRouter();
@@ -24,6 +25,7 @@ const ChatRoom = (): JSX.Element => {
   };
   return (
     <div className="flex  m-2 min-h-screen">
+      {Loading ? <MainLoader /> : null}
       <div className="sticky top-0 dashboard-sidemenu">
         <SideMenu />
       </div>

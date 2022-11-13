@@ -3,7 +3,7 @@ import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
 const smallLoadingIcon = (
-  <LoadingOutlined style={{ fontSize: 25, color: '#d51f97' }} spin />
+  <LoadingOutlined style={{ fontSize: 40, color: '#d51f97' }} spin />
 );
 const loadingIcon = (
   <LoadingOutlined style={{ fontSize: 24, color: '#d51f97' }} spin />
@@ -28,7 +28,7 @@ export const AppLoadingLoader = () => {
       <span className="red_text font-bold text-lg">EQUITY</span>
       <br />
       <div style={{ marginTop: '1em' }}>
-        <Spin indicator={spinIcon} />
+        <Spin indicator={spinIcon} size={'large'} />
       </div>
     </div>
   );

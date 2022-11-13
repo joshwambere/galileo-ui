@@ -1,5 +1,9 @@
 import { BaseApi } from '../api/api';
 import {
+  forgotPasswordRequest,
+  forgotPasswordResponse,
+  resetPasswordRequest,
+  resetPasswordResponse,
   userInfoResponse,
   userLogin,
   userLoginResponse,
@@ -57,6 +61,26 @@ const loginEndpoint = BaseApi.injectEndpoints({
         body: credentials
       }),
       invalidatesTags: ['UserInfo']
+    }),
+    forgotPassword: builder.mutation<
+      forgotPasswordResponse,
+      forgotPasswordRequest
+    >({
+      query: credentials => ({
+        url: `auth/forgotPassword`,
+        method: 'POST',
+        body: credentials
+      })
+    }),
+    resetPassword: builder.mutation<
+      resetPasswordResponse,
+      resetPasswordRequest
+    >({
+      query: credentials => ({
+        url: `auth/resetPassword/${credentials.token}`,
+        method: 'POST',
+        body: { password: credentials.password }
+      })
     })
   })
 });
@@ -67,5 +91,7 @@ export const {
   useUserLogoutMutation,
   useSignupMutation,
   useVerifyMutation,
-  useUpdateProfileMutation
+  useUpdateProfileMutation,
+  useResetPasswordMutation,
+  useForgotPasswordMutation
 } = loginEndpoint;

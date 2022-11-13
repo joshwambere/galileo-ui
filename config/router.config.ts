@@ -30,5 +30,17 @@ export const routes = {
   project: {
     name: 'Project',
     url: '/pm/project/[id]'
+  },
+  forgotPassword: {
+    name: 'ForgotPassword',
+    url: '/auth/forgot-password'
+  },
+  forgotPasswordSuccess: {
+    name: 'ForgotPassword',
+    url: '/auth/forgot-password/success'
+  },
+  resetPassword: {
+    name: 'ResetPassword',
+    url: '/auth/reset-password/[token]'
   }
 };

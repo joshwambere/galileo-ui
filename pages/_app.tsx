@@ -1,6 +1,7 @@
 import '../styles/globals.css';
 import '../styles/login.css';
 import 'antd/dist/antd.css';
+import 'intro.js/introjs.css';
 import 'react-chat-elements/dist/main.css';
 import type { AppProps } from 'next/app';
 import { store } from '../shared/redux/store';
