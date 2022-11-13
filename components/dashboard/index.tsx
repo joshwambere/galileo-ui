@@ -13,16 +13,31 @@ import { useSelector } from 'react-redux';
 import { MessageTypes } from '../../shared/types/message.types';
 import { useRouter } from 'next/router';
 import MainLoader from '../shared/loaders/MainLoader';
+import { Steps } from 'intro.js-react';
+import { STEPS, STEPS_USER } from '../../config/constants.config';
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import { RootState } from '../../shared/redux/store';
+import { token } from '../../shared/types/token.types';
 
 export const Dashboard = (): JSX.Element => {
   const [
     chatRooms,
     { data: rooms, isSuccess: roomsSuccess, isLoading: Loading }
   ] = useLazyChatRoomsQuery();
-
+  const user = useSelector((state: any) => state.auth.user);
   const [activeRoom, setActiveRoom] = useState<string | null>(null);
   const [messages, setMessages] = React.useState<MessageTypes[]>([]);
+
+  const token = useSelector((state: RootState) => state.auth.token);
+  const localToken = localStorage.getItem('_galileo_tkn');
+  const decodedToken: any = jwt.decode(token ? token! : localToken!);
+  const { lastLogin, role } = decodedToken as JwtPayload & token;
+  const [enableIntro, setEnableIntro] = React.useState<boolean>(
+    !(lastLogin && lastLogin)
+  );
+
   const queryRoom = useRouter().query.room;
+
   useEffect(() => {
     chatRooms()
       .unwrap()
@@ -34,10 +49,11 @@ export const Dashboard = (): JSX.Element => {
       })
       .catch(err => {});
   }, [chatRooms]);
+
   const socket = useContext(SocketContext);
-  const user = useSelector((state: any) => state.auth.user);
 
   const localUser = JSON.parse(localStorage.getItem('_galileo_usr') || '{}');
+
   socket.on('message:prev', (data: any) => {
     setMessages(data.messages);
   });
@@ -65,6 +81,12 @@ export const Dashboard = (): JSX.Element => {
   return (
     <SocketContext.Provider value={socketConnection}>
       <div className="dashboard-cont h-screen flex relative overflow-y-scroll">
+        <Steps
+          enabled={enableIntro}
+          steps={role == 'PM' ? STEPS : STEPS_USER}
+          initialStep={0}
+          onExit={() => setEnableIntro(false)}
+        />
         {Loading ? <MainLoader /> : null}
         <div className="sticky top-0 dashboard-sidemenu">
           <SideMenu />

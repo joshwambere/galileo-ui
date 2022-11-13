@@ -3,6 +3,7 @@
 @import url("message.css");
 @import url("ngProgress.css");
 @import url("./Dashboard.css");
+@import url("./success.css");
 
 @tailwind base;
 @tailwind components;
@@ -130,5 +131,17 @@ a {
   top: 2rem;
   left: 0;
 }
+.introjs-button{
 
+  border: 1px solid #d51f97!important;
+
+
+}
+.introjs-button:focus{
+  outline: none!important;
+  box-shadow: 0 0 0 0.1rem rgb(227, 13, 133, 0.5)!important;
+}
+.introjs-helperLayer{
+  box-shadow: #d51f97 0px 0px 1px 2px, rgb(33 33 33 / 50%) 0px 0px 0px 5000px!important;
+}
 

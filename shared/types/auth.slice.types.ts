@@ -4,4 +4,5 @@ export type user = {
   email: string;
   employeeId: string;
   profileImage: string;
+  lastLogin: Date;
 };

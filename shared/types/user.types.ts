@@ -50,3 +50,20 @@ export type userProfileRequest = {
   userName: string;
   profileImage: string;
 };
+
+export type forgotPasswordResponse = {
+  message: string;
+  data?: any;
+};
+export type forgotPasswordRequest = {
+  email: string;
+};
+
+export type resetPasswordResponse = {
+  message: string;
+  success: boolean;
+};
+export type resetPasswordRequest = {
+  password: string;
+  token: string;
+};
