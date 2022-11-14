@@ -18,6 +18,7 @@ import { STEPS, STEPS_USER } from '../../config/constants.config';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { RootState } from '../../shared/redux/store';
 import { token } from '../../shared/types/token.types';
+import { useChatScroll } from '../../hooks/scrollTop';
 
 export const Dashboard = (): JSX.Element => {
   const [
@@ -54,9 +55,15 @@ export const Dashboard = (): JSX.Element => {
 
   const localUser = JSON.parse(localStorage.getItem('_galileo_usr') || '{}');
 
-  socket.on('message:prev', (data: any) => {
-    setMessages(data.messages);
-  });
+  useEffect(() => {
+    socket.on('message', (data: any) => {
+      setMessages(prev => [...prev, data]);
+    });
+
+    socket.on('message:prev', (data: any) => {
+      setMessages(data.messages);
+    });
+  }, [socket]);
 
   const activeRoomHandler = (room: Room) => {
     setActiveRoom(room._id);
@@ -77,10 +84,12 @@ export const Dashboard = (): JSX.Element => {
       socket.emit('users:online', { id: activeRoom });
     }
   }, [activeRoom]);
+  const boxRef: React.MutableRefObject<HTMLDivElement> =
+    useChatScroll(messages);
 
   return (
     <SocketContext.Provider value={socketConnection}>
-      <div className="dashboard-cont h-screen flex relative overflow-y-scroll">
+      <div className="dashboard-cont h-screen flex relative overflow-auto">
         <Steps
           enabled={enableIntro}
           steps={role == 'PM' ? STEPS : STEPS_USER}
@@ -116,6 +125,7 @@ export const Dashboard = (): JSX.Element => {
                   chatRoomMessage={messages}
                   chatRoom={room}
                   key={room._id}
+                  boxRef={boxRef}
                 />
               ))}
           </div>

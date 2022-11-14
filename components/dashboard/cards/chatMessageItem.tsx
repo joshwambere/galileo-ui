@@ -27,7 +27,7 @@ export const ChatMessageItem = ({ message }: Props): JSX.Element => {
           user={user}
         />
       ) : message.message && MessageType(message.message) === 'IMAGE' ? (
-        <ImageCard source={message.message} />
+        <ImageCard  source={message.message}  right={true}/>
       ) : message.message && MessageType(message.message) === 'TEXT' ? (
         <blockquote
           className={
