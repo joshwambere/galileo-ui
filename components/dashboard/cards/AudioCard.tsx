@@ -23,17 +23,19 @@ export const AudioCard = ({
       }
     >
       <audio
-        className={right ? `right-bubble text-[#d51f97]` : `left-bubble`}
+        className={
+          right ? `right-bubble text-[#d51f97] ml-2` : `left-bubble mr-2`
+        }
         controls
         src={audio}
       />
       <cite>
         {message.sender !== user._id
-          ? 'Dev'
+          ? ''
           : moment(message.createdAt).format('LT')}{' '}
         -{' '}
         <span className="text-[#d51f97] font-medium">
-          {message.sender != user._id ? message.sender : 'You'}
+          {message.sender != user._id ? message.senderName : 'You'}
         </span>
       </cite>
     </div>

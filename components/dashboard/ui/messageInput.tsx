@@ -51,7 +51,8 @@ export const MessageInput = ({
         messageType: 'text',
         sender: user && user._id,
         status: 'SENT',
-        createdAt: new Date()
+        createdAt: new Date(),
+        senderName: user && user.userName ? user.userName : ''
       };
       socket.emit('message:create', data);
 

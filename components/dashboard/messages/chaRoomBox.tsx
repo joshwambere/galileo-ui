@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { ForwardedRef, useEffect, useState } from 'react';
 import { generateHSL } from '../../../shared/utils/avatar/AvatarColorUtil';
 import { generateInitials } from '../../../shared/utils/avatar/avatarInitial.util';
 import { AiOutlineMore } from 'react-icons/ai';
 import { MessageInput } from '../ui/messageInput';
 import { MessageList } from './MessageList';
 import { ChatMessageItem } from '../cards/chatMessageItem';
-import { useChatScroll } from '../../../hooks/scrollTop';
 import { Room } from '../../../shared/types/chatRoom.types';
 import { MessageTypes } from '../../../shared/types/message.types';
 import { Info } from '../../chatRoom/Info';
@@ -13,11 +12,13 @@ import { Info } from '../../chatRoom/Info';
 type ChatRoomBoxTypes = {
   chatRoom: Room;
   chatRoomMessage: MessageTypes[];
+  boxRef: ForwardedRef<HTMLDivElement>;
 };
 
 export const ChaRoomBox = ({
   chatRoom,
-  chatRoomMessage
+  chatRoomMessage,
+  boxRef
 }: ChatRoomBoxTypes): JSX.Element => {
   const [msgz, setMsgz] = useState(chatRoomMessage);
   useEffect(() => {
@@ -28,7 +29,6 @@ export const ChaRoomBox = ({
     setMsgz([...chatRoomMessage, newMessage]);
   };
 
-  const boxRef: React.MutableRefObject<HTMLDivElement> = useChatScroll(msgz);
   return (
     <div className="messageBox grid grid-cols-8 h-screen">
       <div className=" messageBox-chat col-span-6 border-r-2 overflow-y-scroll overflow-y-visible relative ">
@@ -54,11 +54,14 @@ export const ChaRoomBox = ({
         <MessageList ref={boxRef}>
           {msgz &&
             msgz.map((item, index) => (
-              <ChatMessageItem key={item._id! + index} message={item} />
+              <ChatMessageItem key={index} message={item} />
             ))}
         </MessageList>
 
-        <div className="inputMessage py-3 px-2 sticky left-0 right-0  bottom-0">
+        <div
+          ref={boxRef}
+          className="inputMessage py-3 px-2 sticky left-0 right-0  bottom-0"
+        >
           <MessageInput room={chatRoom._id} createMessage={messageHandler} />
         </div>
       </div>
